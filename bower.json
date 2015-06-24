@@ -1,0 +1,26 @@
+{
+  "name": "h54s_angular_seed",
+  "version": "0.1.0",
+  "authors": [
+    "Boemskats"
+  ],
+  "description": "A starter project for AngularJS using h54s SAS adapter",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.1",
+    "angular-animate": "~1.4.1",
+    "angular-route": "~1.4.1",
+    "bootstrap": "~3.3.5",
+    "bootstrap-validator": "~0.8.1",
+    "ngtoast": "~1.5.4",
+    "angular-sanitize": "~1.4.1"
+  }
+}

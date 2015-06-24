@@ -1,0 +1,27 @@
+<div id="login-modal" class="modal fade" ng-controller="LoginModalCtrl">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Log in</h4>
+      </div>
+      <div class="modal-body">
+        <form id="login-form" role="form">
+          <div class="form-group">
+            <label class="sr-only" for="exampleInputEmail3">Username</label>
+            <input ng-keypress="handleKeypress($event)" ng-model="user" type="text" class="form-control" id="user-name" placeholder="Username" required>
+            <div class="help-block with-errors"></div>
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="exampleInputPassword3">Password</label>
+            <input ng-keypress="handleKeypress($event)" ng-model="pass" type="password" class="form-control" id="password" placeholder="Password" required>
+            <div class="help-block with-errors"></div>
+          </div>
+        </form>
+        <div id="login-msg">&nbsp;</div>
+      </div>
+      <div class="modal-footer">
+        <button ng-click="handleLogin()" id="submit-login" type="button" class="btn btn-primary center-block">Submit</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

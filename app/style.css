@@ -1,0 +1,76 @@
+/**************** DEBUG WINDOW *******************/
+#debugWindow {
+  position: fixed;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  width: 800px;
+  max-width: 100%;
+  margin: auto;
+  background: #fff;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  z-index: 10000;
+
+  -webkit-box-shadow: 0px 0px 10px 2px rgba(61,61,61,0.6);
+  -moz-box-shadow: 0px 0px 10px 2px rgba(61,61,61,0.6);
+  box-shadow: 0px 0px 10px 2px rgba(61,61,61,0.6);
+}
+
+#debugWindow > div {
+  height: 100%;
+}
+
+.tab-content {
+  overflow-y: auto;
+}
+
+#debug-btn {
+  position: absolute;
+  top: 50px;
+  right: 0;
+}
+
+#debugWindow .tab-content {
+  padding: 5px 10px;
+}
+
+#debugWindow button.close {
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+#debugWindow .clear-btn {
+  position: absolute;
+  right: 28px;
+  bottom: 10px;
+}
+
+.logItem {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+/*************************************************/
+
+
+/******************* LOGIN MODAL *****************/
+#login-msg {
+  text-align: center;
+  color: #a94442;
+  font-weight: bold;
+}
+/*************************************************/
+
+/***************** TOAST MESSAGE *****************/
+.shadow-toast .alert {
+  -webkit-box-shadow: 0px 0px 7px 1px rgba(61,61,61,0.3);
+  -moz-box-shadow: 0px 0px 7px 1px rgba(61,61,61,0.3);
+  box-shadow: 0px 0px 7px 1px rgba(61,61,61,0.3);
+}
+/*************************************************/
+
+#main-container {
+  margin-top: 60px;
+}

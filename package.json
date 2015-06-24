@@ -1,0 +1,16 @@
+{
+  "name": "h54s_angular_seed",
+  "version": "0.1.0",
+  "description": "A starter project for AngularJS using h54s SAS adapter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bower install",
+    "start": "http-server app/ -a localhost -p 8000 -c-1"
+  },
+  "author": "Boemskats",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.8.0"
+  }
+}
