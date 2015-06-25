@@ -9,7 +9,7 @@
     "start": "http-server app/ -a localhost -p 8000 -c-1"
   },
   "author": "Boemskats",
-  "license": "ISC",
+  "license": "GPL v3",
   "devDependencies": {
     "http-server": "^0.8.0"
   }
