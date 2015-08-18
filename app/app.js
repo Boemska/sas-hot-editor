@@ -14,6 +14,6 @@ angular.module('myApp', [
     animation: 'fade', // or 'slide',
     dismissButton: true,
     additionalClasses: 'shadow-toast',
-    timeout: 1500
+    timeout: 180000 //3 minutes - it's manually dismissed
   });
 }]);

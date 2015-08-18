@@ -1,6 +1,6 @@
 angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
 
-.factory('sasAdapter', function($q, $rootScope, ngToast) {
+.factory('sasAdapter', function($q, $rootScope, ngToast, $timeout) {
   var _adapter = new h54s({
     hostUrl: 'hostUrl',
     debug: true
@@ -34,11 +34,11 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
         }
 
         if(err && (err.type === 'notLoggedinError' || err.type === 'loginError')) {
+          ngToast.dismiss();
           $('#login-modal').modal({
             keyboard: false,
             backdrop: 'static'
           });
-          ngToast.dismiss();
           return;
         }
 
@@ -65,6 +65,10 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
           }
           deferred.resolve(res);
         }
+
+        $timeout(function() {
+          ngToast.dismiss();
+        }, 1500);
       });
       return deferred.promise;
     },
