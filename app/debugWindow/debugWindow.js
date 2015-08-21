@@ -8,7 +8,7 @@ angular.module('h54sDebugWindow', ['sasAdapter'])
       $scope.debugData = sasAdapter.getDebugData().map(function(el) {
         return {
           time: el.time,
-          message: $sce.trustAsHtml(el.debugHtml),
+          message: $sce.trustAsHtml(el.debugHtml.replace(/<style.+>(.|\n)+<\/style>/g, '').replace(/<link.+>/g, '')),
           sasProgram: el.sasProgram
         };
       });
@@ -16,7 +16,7 @@ angular.module('h54sDebugWindow', ['sasAdapter'])
       $scope.failedRequests = sasAdapter.getFailedRequests().map(function(el) {
         return {
           time: el.time,
-          message: $sce.trustAsHtml(el.responseHtml),
+          message: $sce.trustAsHtml(el.responseHtml.replace(/<style.+>(.|\n)+<\/style>/g, '').replace(/<link.+>/g, '')),
           sasProgram: el.sasProgram
         };
       });
