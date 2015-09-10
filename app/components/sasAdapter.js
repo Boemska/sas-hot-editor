@@ -113,6 +113,9 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
     },
     isDebugMode : function() {
       return _adapter.debug;
+    },
+    onRemoteConfigUpdate: function(callback) {
+      _adapter.onRemoteConfigUpdate(callback);
     }
   };
 });

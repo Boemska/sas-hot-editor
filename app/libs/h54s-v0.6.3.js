@@ -1,4 +1,4 @@
-/*! h54s v0.4.2 - 2015-06-22 
+/*! h54s v0.6.3 - 2015-09-09 
  *  License: GPL 
  *  Author: Boemska 
 */
@@ -67,42 +67,73 @@ if (!Object.keys) {
 */
 var h54s = function(config) {
 
+  //default config values
   this.maxXhrRetries    = 5;
   this.url              = "/SASStoredProcess/do";
   this.debug            = false;
   this.loginUrl         = '/SASLogon/Logon.do';
   this.retryAfterLogin  = true;
   this.sasApp           = 'Stored Process Web App 9.3';
+  this.ajaxTimeout      = 30000;
+
+  this.remoteConfigUpdateCallbacks = [];
 
   this._pendingCalls    = [];
 
+  if(config && config.isRemoteConfig) {
+    var self = this;
 
-  if(!config) {
-    return;
-  } else if(typeof config !== 'object') {
-    throw new h54s.Error('argumentError', 'First parameter should be config object');
-  }
+    this._disableCalls = true;
 
-  //merge config object from parameter with this
-  for(var key in config) {
-    if(config.hasOwnProperty(key)) {
-      if((key === 'url' || key === 'loginUrl') && config[key].charAt(0) !== '/') {
-        config[key] = '/' + config[key];
+    // '/base/test/h54sConfig.json' is for the testing with karma
+    //replaced with grunt concat in build
+    this._utils.ajax.get('h54sConfig.json').success(function(res) {
+      var remoteConfig = JSON.parse(res.responseText);
+
+      for(var key in remoteConfig) {
+        if(remoteConfig.hasOwnProperty(key) && config[key] === undefined && key !== 'isRemoteConfig') {
+          config[key] = remoteConfig[key];
+        }
       }
-      this[key] = config[key];
-    }
-  }
 
-  //if server is remote use the full server url
-  //NOTE: this is not permited by the same-origin policy
-  if(config.hostUrl) {
-    if(config.hostUrl.charAt(config.hostUrl.length - 1) === '/') {
-      config.hostUrl = config.hostUrl.slice(0, -1);
-    }
-    this.hostUrl  = config.hostUrl;
-    this.url      = config.hostUrl + this.url;
-    this.loginUrl = config.hostUrl + this.loginUrl;
+      _setConfig.call(self, config);
+
+      //execute callbacks when we have remote config
+      //note that remote conifg is merged with instance config
+      for(var i = 0, n = self.remoteConfigUpdateCallbacks.length; i < n; i++) {
+        var fn = self.remoteConfigUpdateCallbacks[i];
+        fn();
+      }
+
+      //execute sas calls disabled while waiting for the config
+      self._disableCalls = false;
+      while(self._pendingCalls.length > 0) {
+        var pendingCall = self._pendingCalls.shift();
+        var sasProgram  = pendingCall.sasProgram;
+        var callback    = pendingCall.callback;
+        var params      = pendingCall.params;
+
+        //update debug because it may change in the meantime
+        params._debug = self.debug ? 131 : 0;
+
+        self.call(sasProgram, null, callback, params);
+      }
+    }).error(function (err) {
+      throw new h54s.Error('ajaxError', 'Remote config file cannot be loaded. Http status code: ' + err.status);
+    });
+  } else {
+    _setConfig.call(this, config);
   }
+};
+
+/*
+* Add callback functions executed when properties are updated with remote config
+*
+*@callback - callback pushed to array
+*
+*/
+h54s.prototype.onRemoteConfigUpdate = function(callback) {
+  this.remoteConfigUpdateCallbacks.push(callback);
 };
 
 /*
@@ -137,7 +168,44 @@ h54s.Tables = function(table, macroName) {
   this.add(table, macroName);
 };
 
-/* global h54s, console */
+/*
+* private function to set h54s instance properties
+*
+*@param {object} config - adapter config object, with keys like url, debug, etc.
+*
+*/
+function _setConfig(config) {
+  if(!config) {
+    return;
+  } else if(typeof config !== 'object') {
+    throw new h54s.Error('argumentError', 'First parameter should be config object');
+  }
+
+  //merge config object from parameter with this
+  for(var key in config) {
+    if(config.hasOwnProperty(key)) {
+      if((key === 'url' || key === 'loginUrl') && config[key].charAt(0) !== '/') {
+        config[key] = '/' + config[key];
+      }
+      this[key] = config[key];
+    }
+  }
+
+  //if server is remote use the full server url
+  //NOTE: this is not permited by the same-origin policy
+  if(config.hostUrl) {
+    if(config.hostUrl.charAt(config.hostUrl.length - 1) === '/') {
+      config.hostUrl = config.hostUrl.slice(0, -1);
+    }
+    this.hostUrl  = config.hostUrl;
+    this.url      = config.hostUrl + this.url;
+    this.loginUrl = config.hostUrl + this.loginUrl;
+  }
+
+  this._utils.ajax.setTimeout(this.ajaxTimeout);
+}
+
+/* global h54s */
 
 /*
 * Call Sas program
@@ -163,7 +231,7 @@ h54s.prototype.call = function(sasProgram, tablesObj, callback, params) {
 
   if(!params) {
     params = {
-      _program: sasProgram,
+      _program: this.metadataRoot ? this.metadataRoot.replace(/\/?$/, '/') + sasProgram.replace(/^\//, '') : sasProgram,
       _debug:   this.debug ? 131 : 0,
       _service: 'default',
     };
@@ -209,12 +277,11 @@ h54s.prototype.call = function(sasProgram, tablesObj, callback, params) {
         params:     params
       });
 
-      var sasAppMatches = res.responseURL.match(/_sasapp=([^&]*)/);
-      if(!sasAppMatches) {
-        self._utils.addApplicationLogs('Cannot extract _sasapp parameter from login URL');
-        console.warn('Cannot extract _sasapp parameter from login URL');
-      } else {
+      try {
+        var sasAppMatches = res.responseURL.match(/_sasapp=([^&]*)/);
         self.sasApp = sasAppMatches[1].replace(/\+/g, ' ');
+      } catch(e) {
+        self._utils.addApplicationLogs('Cannot extract _sasapp parameter from login URL');
       }
 
       callback(new h54s.Error('notLoggedinError', 'You are not logged in'));
@@ -319,6 +386,10 @@ h54s.prototype.login = function(user, pass, callback) {
         var sasProgram  = pendingCall.sasProgram;
         var callback    = pendingCall.callback;
         var params      = pendingCall.params;
+
+        //update debug because it may change in the meantime
+        params._debug = self.debug ? 131 : 0;
+
         if(self.retryAfterLogin) {
           self.call(sasProgram, null, callback, params);
         }
@@ -436,6 +507,9 @@ h54s.Tables.prototype.add = function(table, macroName) {
     if(typeof macroName !== 'string') {
       throw new h54s.Error('argumentError', 'Second argument must be string');
     }
+    if(!isNaN(macroName[macroName.length - 1])) {
+      throw new h54s.Error('argumentError', 'Macro name cannot have number at the end');
+    }
   } else {
     throw new h54s.Error('argumentError', 'Missing arguments');
   }
@@ -451,7 +525,7 @@ h54s.Tables.prototype.add = function(table, macroName) {
   this._tables[macroName] = tableArray;
 };
 
-/* global h54s, XMLHttpRequest, ActiveXObject, document */
+/* global h54s, XMLHttpRequest, ActiveXObject, document, clearTimeout, setTimeout */
 h54s.prototype._utils                   = {};
 h54s.Tables.prototype._utils            = {};
 h54s.prototype._utils._applicationLogs  = [];
@@ -460,6 +534,9 @@ h54s.prototype._utils._sasErrors        = [];
 h54s.prototype._utils._failedRequests   = [];
 
 h54s.prototype._utils.ajax = (function () {
+  var timeout = 30000;
+  var timeoutHandle;
+
   var xhr = function(type, url, data) {
     var methods = {
       success: function() {},
@@ -472,6 +549,7 @@ h54s.prototype._utils.ajax = (function () {
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     request.onreadystatechange = function () {
       if (request.readyState === 4) {
+        clearTimeout(timeoutHandle);
         if (request.status >= 200 && request.status < 300) {
           methods.success.call(methods, request);
         } else {
@@ -480,7 +558,9 @@ h54s.prototype._utils.ajax = (function () {
       }
     };
 
-    request.timeout = 30000;
+    timeoutHandle = setTimeout(function() {
+      request.abort();
+    }, timeout);
 
     request.send(data);
 
@@ -517,7 +597,7 @@ h54s.prototype._utils.ajax = (function () {
       if(typeof data === 'object') {
         dataStr = serialize(data);
       }
-      var urlWithParams = dataStr ? (url + '?' + dataStr) : '';
+      var urlWithParams = dataStr ? (url + '?' + dataStr) : url;
       return xhr('GET', urlWithParams);
     },
     post: function(url, data) {
@@ -526,6 +606,9 @@ h54s.prototype._utils.ajax = (function () {
         dataStr = serialize(data);
       }
       return xhr('POST', url, dataStr);
+    },
+    setTimeout: function(t) {
+      timeout = t;
     }
   };
 })();

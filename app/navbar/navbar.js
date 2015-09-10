@@ -12,4 +12,11 @@ angular.module('h54sNavbar', ['sasAdapter', 'h54sDebugWindow'])
   if(sasAdapter.isDebugMode()) {
     $('#toggle-debug-btn').attr('aria-pressed', true).addClass('active');
   }
+
+  sasAdapter.onRemoteConfigUpdate(function() {
+    if(sasAdapter.isDebugMode()) {
+      $('#toggle-debug-btn').attr('aria-pressed', true).addClass('active');
+    }
+  });
+  
 }]);
