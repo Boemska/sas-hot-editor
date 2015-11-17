@@ -26,6 +26,6 @@ E.G. `http://example.com/`
 More information on `https://github.com/Boemska/h54s`
 
 #### Run the Application
-Run `npm start`. It will create web server and serve your files.
+Run `npm run server`. It will create web server and serve your files.
 
 Now open `http://localhost:8000` in your browser
