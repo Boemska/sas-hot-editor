@@ -2,8 +2,7 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
 
 .factory('sasAdapter', function($q, $rootScope, ngToast, $timeout) {
   var _adapter = new h54s({
-    hostUrl: 'hostUrl',
-    debug: true
+    isRemoteConfig: true
   });
   return {
     login: function(user, pass) {
