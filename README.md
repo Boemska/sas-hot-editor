@@ -23,7 +23,7 @@ Run `npm install`. It will also install bower components.
 You have to edit hostUrl in `app/components/sasAdapter.js` on line 5. This is your host url where SAS is installed and running.
 E.G. `http://example.com/`
 
-More information on `https://github.com/Boemska/h54s`
+More information on https://github.com/Boemska/h54s
 
 #### Run the Application
 Run `npm run server`. It will create web server and serve your files.
