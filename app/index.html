@@ -21,6 +21,13 @@
   <ng-include src="'navbar/navbar.html'"></ng-include>
 
   <div id="main-container" class="container">
+    <div ng-controller="AlertsCtrl">
+      <div ng-repeat="alert in alerts" class="alert alert-{{alert.type}} alert-dismissible" role="alert">
+        <button type="button" class="close" ng-click="removeAlert($ind)"><span aria-hidden="true">&times;</span></button>
+        <div ng-bind-html="alert.message"></div>
+      </div>
+    </div>
+
     <ul class="menu">
       <li><a href="#/view1">view1</a></li>
       <li><a href="#/view2">view2</a></li>
@@ -47,6 +54,7 @@
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="app.js"></script>
   <script src="bower_components/h54s/dist/h54s.js"></script>
+  <script src="alerts/alerts.js"></script>
   <script src="components/sasAdapter.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
   <script src="bower_components/angular-animate/angular-animate.min.js"></script>

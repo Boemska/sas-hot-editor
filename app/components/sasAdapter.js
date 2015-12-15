@@ -1,6 +1,6 @@
-angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
+angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize', 'alerts'])
 
-.factory('sasAdapter', function($q, $rootScope, ngToast, $timeout) {
+.factory('sasAdapter', function($q, $rootScope, ngToast, $timeout, alerts) {
   var _adapter = new h54s({
     isRemoteConfig: true
   });
@@ -62,6 +62,11 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
               content: 'Loaded: <b>' + sasProgram + '</b>'
             });
           }
+
+          if(res.usermessage !== 'blank') {
+            alerts.create(res.usermessage, 'info');
+          }
+
           deferred.resolve(res);
         }
 
