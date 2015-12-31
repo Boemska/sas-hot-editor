@@ -18,7 +18,7 @@ To enhance the UX, H54S provides hooks that allow you to easily implement an ind
 
 #### SAS Logon Management
 
-When an authentication token for the SAS Stored Process Web Application doesn't exist or has expired, the SPWA redirects all user requests to the SAS Logon Application. To avoid disruption in workflow and loss of application context, H54S handles these redirects in the background, by default queuing the any requests until successful reauthentication. An example of the Logon handling capability is implemented here using a modal:
+When an authentication token for the SAS Stored Process Web Application doesn't exist or has expired, the SPWA redirects all user requests to the SAS Logon Application. To avoid disruption in workflow and loss of application context, H54S handles these redirects in the background, by default queuing any requests until successful reauthentication. An example of the Logon handling capability is implemented here using a modal:
 
 ![logon](https://cloud.githubusercontent.com/assets/11962123/12065492/3d35472a-afd0-11e5-86ce-edd2eded0207.gif)
 
@@ -55,7 +55,7 @@ will result in the message appearing in the Application Log window as so:
 -----------
 #### Debug Mode
 
-One of the core features of H54S, aimed at both developers and SAS support teams, is the handling of te SAS Debug Mode. Here, it is implemented using a toggle button labelled Debug, next to the Show Log button in the top right of the application window. 
+One of the core features of H54S, aimed at both developers and SAS support teams, is the handling of the SAS Debug Mode. Here, it is implemented using a toggle button labelled Debug, next to the Show Log button in the top right of the application window. 
 When running in Debug Mode, applications continue to behave normally. However, the debug information for each request to the server is recorded against a list in the Adapter, and the Java and SAS execution logs for each call are retrieved using the Debug Data tab in the Log Window. 
 
 ![debugmessage](https://cloud.githubusercontent.com/assets/11962123/12065802/b640a7ae-afd5-11e5-93d1-b6e19370167f.gif)
@@ -103,7 +103,7 @@ Run `npm install`. Much like the original AngularJS seed app, this will also ins
 
 The instance of the adapter configured with this skeleton app is defined in `app/components/sasAdapter.js`. For a minimum working configuration, as per the [example on the H54S page](https://github.com/Boemska/h54s#html5-front-end), you will need to configure it by setting the SAS Server hostname in `app/h54sConfig.json`, along with any other properties that differ from the default H54S config object. 
 
-By default, this instance of the adapter is configured to `useRemoteConfig: true`, meaning that the it will look at for the app/h54sConfig.json code for the overriding configuration object spec. The full H54S configuration object spec can be found on the [H54S API Reference](https://github.com/Boemska/h54s#javascript-api-reference).
+By default, this instance of the adapter is configured to `useRemoteConfig: true`, meaning that it will look for the app/h54sConfig.json code for the overriding configuration object spec. The full H54S configuration object spec can be found on the [H54S API Reference](https://github.com/Boemska/h54s#javascript-api-reference).
 
 ### Running the Application
 
