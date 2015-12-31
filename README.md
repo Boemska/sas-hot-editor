@@ -15,6 +15,7 @@ H54S implements a few features intended to make H54S-based apps both easier to d
 To enhance the UX, H54S provides hooks that allow you to easily implement an indication mechanism to let your users know when your app is talking to the back end. It is implemented here using an ngToast that appears in the top right whenever your app is communicating with SAS. It can be seen in action in most of the animations below.
 
 -----------
+
 #### SAS Logon Management
 
 When an authentication token for the SAS Stored Process Web Application doesn't exist or has expired, the SPWA redirects all user requests to the SAS Logon Application. To avoid disruption in workflow and loss of application context, H54S handles these redirects in the background, by default queuing the any requests until successful reauthentication. An example of the Logon handling capability is implemented here using a modal:
@@ -33,7 +34,7 @@ Setting this macro variable anywhere in your SAS code prior to the execution of 
 %let usermessage=Remember, the system is going down for maintenance later!;
 ```
 
-will result in this:
+will result in the message appearing, like this:
 
 ![usermessage](https://cloud.githubusercontent.com/assets/11962123/12065602/007c3d1e-afd2-11e5-918b-2d87f28e17b3.gif)
 
@@ -41,14 +42,14 @@ will result in this:
 -----------
 #### Log Message
 
-Much like the User Message above, this is another mechanism for either communicating with your users, by means of keeping a client-side log of your application activity. Use can depend on your application. Here implemented as part of a Log Window:
+Much like the User Message above, this is another mechanism for either communicating with your users, by means of keeping a client-side log of your application activity. Use can depend on your application. Here implemented as part of a Log Window, setting a logmessage as so:
 
 ```sas
 %let logmessage=ORCL Debug: &nobs rows returned from table XYZ for user &_METAPERSON.;
 ```
+will result in the message appearing in the Application Log window as so:
 
 ![logmessage](https://cloud.githubusercontent.com/assets/11962123/12065735/76a154be-afd4-11e5-97e6-0c431f8069c5.gif)
-
 
 
 -----------
