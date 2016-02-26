@@ -71,7 +71,9 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize', 'alerts'])
         }
 
         $timeout(function() {
-          ngToast.dismiss(toast.id);
+          if(toast) {
+            ngToast.dismiss(toast.id);
+          }
         }, 1500);
       });
       return deferred.promise;

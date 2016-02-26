@@ -11,11 +11,12 @@ angular.module('h54sLoginModal', ['sasAdapter'])
     try {
       sasAdapter.login(user, pass).then(function(status) {
         if(status === -1) {
-          $('#login-msg').text('Wrong credentials');
+          $scope.error = 'Wrong credentials';
         } else if(status === 200) {
+          $scope.error = '';
           $('#login-modal').modal('hide');
         } else {
-          $('#login-msg').text('Failed request. Please try again later.');
+          $scope.error = 'Failed request. Please try again later.';
         }
       });
     } catch(e) {
@@ -29,5 +30,12 @@ angular.module('h54sLoginModal', ['sasAdapter'])
     if($event.keyCode === 13) {
       $scope.handleLogin();
     }
-  }
+  };
+
+  $scope.$watch('user', function() {
+    $scope.error = '';
+  });
+  $scope.$watch('pass', function() {
+    $scope.error = '';
+  });
 }]);

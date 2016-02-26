@@ -1,6 +1,6 @@
 {
   "name": "h54s_angular_seed",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A starter project for AngularJS using h54s SAS adapter",
   "main": "index.js",
   "scripts": {

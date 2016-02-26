@@ -17,7 +17,7 @@
             <div class="help-block with-errors"></div>
           </div>
         </form>
-        <div id="login-msg">&nbsp;</div>
+        <div id="login-msg">{{error || '&nbsp;'}}</div>
       </div>
       <div class="modal-footer">
         <button ng-click="handleLogin()" id="submit-login" type="button" class="btn btn-primary center-block">Submit</button>

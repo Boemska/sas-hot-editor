@@ -29,25 +29,19 @@ angular.module('h54sDebugWindow', ['sasAdapter'])
 
   $scope.clearSasErrors = function() {
     sasAdapter.clearSasErrors();
-    //TODO: remove when h54s is updated to a version greater than 0.7.3
-    $scope.sasErrors.length = 0;
   };
 
   $scope.clearDebugData = function() {
     sasAdapter.clearDebugData();
-    //TODO: remove when h54s is updated to a version greater than 0.7.3
     $scope.debugData.length = 0;
   };
 
   $scope.clearApplicationLogs = function() {
     sasAdapter.clearApplicationLogs();
-    //TODO: remove when h54s is updated to a version greater than 0.7.3
-    $scope.appLogs.length = 0;
   };
 
   $scope.clearFailedRequests = function() {
     sasAdapter.clearFailedRequests();
-    //TODO: remove when h54s is updated to a version greater than 0.7.3
     $scope.failedRequests.length = 0;
   };
 
