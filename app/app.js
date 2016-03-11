@@ -1,5 +1,7 @@
 angular.module('myApp', [
   'ngRoute',
+  'ngMaterial',
+  'picardy.fontawesome',
   'h54sDebugWindow',
   'h54sLoginModal',
   'h54sNavbar',
@@ -7,13 +9,6 @@ angular.module('myApp', [
   'myApp.view2'
 ])
 
-.config(['$routeProvider', 'ngToastProvider', function($routeProvider, ngToastProvider) {
+.config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/view1'});
-
-  ngToastProvider.configure({
-    animation: 'fade', // or 'slide',
-    dismissButton: true,
-    additionalClasses: 'shadow-toast',
-    timeout: 180000 //3 minutes - it's manually dismissed
-  });
 }]);

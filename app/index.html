@@ -9,61 +9,54 @@
   <title>My AngularJS with h54s app</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="bower_components/ngtoast/dist/ngToast.min.css">
-  <link rel="stylesheet" href="bower_components/ngtoast/dist/ngToast-animations.min.css">
 </head>
 <body>
 
   <toast></toast>
 
-  <ng-include src="'navbar/navbar.html'"></ng-include>
 
-  <div id="main-container" class="container">
-    <div ng-controller="AlertsCtrl">
-      <div ng-repeat="alert in alerts" class="alert alert-{{alert.type}} alert-dismissible" role="alert">
-        <button type="button" class="close" ng-click="removeAlert($ind)"><span aria-hidden="true">&times;</span></button>
-        <div ng-bind-html="alert.message"></div>
-      </div>
-    </div>
+  <div id="main-container" layout="column">
+    <!--[if lt IE 7]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
 
+    <ng-include src="'navbar/navbar.html'"></ng-include>
+    
     <ul class="menu">
       <li><a href="#/view1">view1</a></li>
       <li><a href="#/view2">view2</a></li>
     </ul>
 
-    <!--[if lt IE 7]>
-  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+    <div ng-view layout="column" flex></div>
 
-    <div ng-view></div>
-
-    <div>Angular h54s seed app</div>
   </div>
 
   <ng-include src="'debugWindow/debugWindow.html'"></ng-include>
-  <ng-include src="'loginModal/loginModal.html'"></ng-include>
 
   <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
 -->
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_components/angular-material/angular-material.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/angular-fontawesome/dist/angular-fontawesome.js"></script>
   <script src="app.js"></script>
   <script src="bower_components/h54s/dist/h54s.js"></script>
-  <script src="alerts/alerts.js"></script>
   <script src="components/sasAdapter.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-  <script src="bower_components/ngtoast/dist/ngToast.min.js"></script>
   <script src="bower_components/bootstrap-validator/dist/validator.min.js"></script>
   <script src="debugWindow/debugWindow.js"></script>
   <script src="loginModal/loginModal.js"></script>
   <script src="navbar/navbar.js"></script>
+
   <script src="view1/view1.js"></script>
   <script src="view2/view2.js"></script>
+
 </body>
 </html>

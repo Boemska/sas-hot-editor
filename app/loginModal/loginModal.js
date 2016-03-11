@@ -1,6 +1,6 @@
-angular.module('h54sLoginModal', ['sasAdapter'])
+angular.module('h54sLoginModal', ['sasAdapter', 'ngMaterial'])
 
-.controller('LoginModalCtrl', ['$scope', '$interval', 'sasAdapter', function($scope, $interval, sasAdapter) {
+.controller('LoginModalCtrl', ['$scope', 'sasAdapter', '$mdDialog', '$interval', function($scope, sasAdapter, $mdDialog, $interval) {
 
   $scope.handleLogin = function() {
     //disable submit button based on loading property
@@ -24,7 +24,7 @@ angular.module('h54sLoginModal', ['sasAdapter'])
         $scope.error = true;
       } else if(status === 200) {
         $scope.error = false;
-        $('#login-modal').modal('hide');
+        $mdDialog.hide();
       } else {
         $scope.msg = 'Failed request. Please try again later.';
         $scope.error = true;

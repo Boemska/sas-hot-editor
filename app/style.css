@@ -36,15 +36,32 @@
   padding: 5px 10px;
 }
 
+@media (max-width: 800px) {
+  #debugWindow md-tabs {
+    margin-top: 30px;
+  }
+}
+
 #debugWindow button.close {
-  margin-top: 10px;
-  margin-right: 5px;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  z-index: 100;
+  font-size: 26px;
 }
 
 #debugWindow .clear-btn {
   position: absolute;
-  right: 28px;
-  bottom: 10px;
+  bottom: 15px;
+  right: 20px;
+}
+
+#debugWindow .collapsible {
+  overflow: hidden;
+}
+
+#debugWindow .collapsible .hidden {
+  height: 0;
 }
 
 .logItem {
@@ -74,6 +91,56 @@
 }
 /*************************************************/
 
+#login-modal {
+  width: 300px;
+}
+
+#login-modal > md-toolbar {
+  padding: 0 20px;
+}
+#login-modal > md-content {
+  padding: 10px 20px;
+}
+
 #main-container {
-  margin-top: 60px;
+  height: 100%;
+}
+
+.navbar md-menu-bar, .navbar md-menu {
+  height: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  .navbar md-menu-bar {
+    padding-right: 0;
+  }
+}
+
+.navbar-logo {
+  height: 50%;
+  margin-right: 10px;
+}
+
+md-toast.error .md-toast-content {
+  background-color: #D8001D;
+}
+
+md-toast.success .md-toast-content {
+  background-color: #469229;
+}
+
+.badge {
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: normal;
+  color: #ffffff;
+  line-height: 1;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+  background-color: #bbbbbb;
+  border-radius: 10px;
 }

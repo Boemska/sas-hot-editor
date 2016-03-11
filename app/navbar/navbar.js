@@ -9,14 +9,10 @@ angular.module('h54sNavbar', ['sasAdapter', 'h54sDebugWindow'])
     sasAdapter.toggleDebugMode();
   };
 
-  if(sasAdapter.isDebugMode()) {
-    $('#toggle-debug-btn').attr('aria-pressed', true).addClass('active');
-  }
+  $scope.debug = sasAdapter.isDebugMode();
 
   sasAdapter.onRemoteConfigUpdate(function() {
-    if(sasAdapter.isDebugMode()) {
-      $('#toggle-debug-btn').attr('aria-pressed', true).addClass('active');
-    }
+    $scope.debug = sasAdapter.isDebugMode();
   });
 
 }]);
