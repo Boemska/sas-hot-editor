@@ -58,8 +58,11 @@
 /******************* LOGIN MODAL *****************/
 #login-msg {
   text-align: center;
-  color: #a94442;
   font-weight: bold;
+  margin: -20px 0 10px 0;
+}
+#login-msg.error {
+  color: #a94442;
 }
 /*************************************************/
 
