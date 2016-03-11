@@ -9,8 +9,6 @@ angular.module('h54sLoginModal', ['sasAdapter', 'ngMaterial'])
     var user = $scope.user;
     var pass = $scope.pass;
 
-    $('#login-form').validator('validate');
-
     $scope.msg = 'Please wait.';
     $scope.error = false;
 
