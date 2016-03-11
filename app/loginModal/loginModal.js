@@ -35,6 +35,7 @@ angular.module('h54sLoginModal', ['sasAdapter'])
     }, function(e) {
       $scope.msg = e.message;
       $scope.error = true;
+      $scope.loading = false;
       $interval.cancel(handler);
     });
   };
