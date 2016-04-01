@@ -12,7 +12,9 @@ angular.module('h54sNavbar', ['sasAdapter', 'h54sDebugWindow'])
   $scope.debug = sasAdapter.isDebugMode();
 
   sasAdapter.onRemoteConfigUpdate(function() {
-    $scope.debug = sasAdapter.isDebugMode();
+    $scope.$apply(function() {
+      $scope.debug = sasAdapter.isDebugMode();
+    });
   });
 
 }]);
