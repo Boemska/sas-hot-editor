@@ -1,4 +1,4 @@
-angular.module('myApp.view1', ['ngRoute'])
+angular.module('myApp.view1', ['ngRoute', 'dynamicHandsontable'])
 
 .config(['$routeProvider', function ($routeProvider) {
   $routeProvider.when('/view1', {
@@ -8,11 +8,10 @@ angular.module('myApp.view1', ['ngRoute'])
 }])
 
 .controller('View1Ctrl', ['$scope', 'sasAdapter', '$rootScope', function ($scope, sasAdapter, $rootScope) {
-/*
-  sasAdapter.call('programPath').then(function(res) {
-    //success
+  sasAdapter.call('/Apps/tableEditor/getTable').then(function(res) {
+    $scope.htDynamicSpec = res.columnspec;
+    $scope.htData = res.tabledata;
   }, function(err) {
     //error
   });
-*/
 }]);
