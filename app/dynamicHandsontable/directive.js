@@ -33,10 +33,12 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
               for(var i = 0; i < scope.spec.length; i++) {
                 for(var j = 0; j < changes.length; j++) {
                   if(changes[j][1] === scope.spec[i].NAME.toUpperCase()) {
-                    if(changes[j][3].length > scope.spec[i].LENGTH) {
-                      alert('Max length exceeded');
-                      changes.splice(j, 1);
-                    } else if(getType(scope.spec[i].TYPE) === 'numeric') {
+                    if(getType(scope.spec[i].TYPE) !== 'numeric') {
+                      if(changes[j][3].length > scope.spec[i].LENGTH) {
+                        alert('Max length exceeded');
+                        changes.splice(j, 1);
+                      }
+                    } else {
                       if(isNaN(changes[j][3])) {
                         alert('Only numeric values are accepted');
                         changes.splice(j, 1);
@@ -47,10 +49,6 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
                   }
                 }
               }
-            },
-            afterChange: function(changes, source) {
-              //TODO: save
-              console.log(changes);
             }
           };
         }
