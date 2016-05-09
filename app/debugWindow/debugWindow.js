@@ -30,7 +30,7 @@ angular.module('h54sDebugWindow', ['sasAdapter'])
   }, true);
 
   var headerHeight = $('#debugWindow .nav.nav-tabs').height();
-  var height = $('#debugWindow').height() - headerHeight - 10;
+  var height = $('#debugWindow').height() - headerHeight - 20;
   $('#debugWindow .tab-content').height(height);
 
   $scope.closeDebugWindow = function() {
