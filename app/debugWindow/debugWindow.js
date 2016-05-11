@@ -63,5 +63,5 @@ angular.module('h54sDebugWindow', ['sasAdapter'])
       }
     });
 
-}
+  }
 ]);
