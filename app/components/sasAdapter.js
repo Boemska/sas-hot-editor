@@ -20,7 +20,7 @@ angular.module('sasAdapter', ['ngMaterial'])
       var deferred = $q.defer();
 
       var toast = $mdToast.build({
-        template: '<md-toast>Loading:&nbsp;<b>{{sasProgram}}</b></md-toast>',
+        template: '<md-toast><div>Loading&nbsp;<b>{{sasProgram}}</b></div></md-toast>',
         hideDelay: 1800,
         position: 'top right',
         controller: function($scope) {
@@ -46,7 +46,7 @@ angular.module('sasAdapter', ['ngMaterial'])
 
         if(err) {
           $timeout(function() {
-            toast.template('<md-toast class="error">Error loading&nbsp;<b>{{sasProgram}}</b></md-toast>');
+            toast.template('<md-toast class="error"><div>Error loading&nbsp;<b>{{sasProgram}}</b></div></md-toast>');
             $mdToast.show(toast);
           }, 800);
 
@@ -62,7 +62,7 @@ angular.module('sasAdapter', ['ngMaterial'])
 
           deferred.reject(err);
         } else {
-          toast.template('<md-toast class="success">Loaded:&nbsp;<b>{{sasProgram}}</b></md-toast>');
+          toast.template('<md-toast class="success"><div>Loaded&nbsp;<b>{{sasProgram}}</b></div></md-toast>');
           $mdToast.show(toast);
 
           deferred.resolve(res);
