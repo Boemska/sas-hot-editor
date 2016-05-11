@@ -5,10 +5,9 @@ angular.module('myApp', [
   'h54sDebugWindow',
   'h54sLoginModal',
   'h54sNavbar',
-  'myApp.view1',
-  'myApp.view2'
+  'myApp.main',
 ])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.otherwise({redirectTo: '/'});
 }]);

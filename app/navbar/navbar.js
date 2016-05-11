@@ -5,7 +5,8 @@ angular.module('h54sNavbar', ['sasAdapter', 'h54sDebugWindow'])
   'sasAdapter',
   '$rootScope',
   '$sce',
-  function($scope, sasAdapter, $rootScope, $sce) {
+  '$mdSidenav',
+  function($scope, sasAdapter, $rootScope, $sce, $mdSidenav) {
     $scope.openDebugWindow = function() {
       $rootScope.showDebugWindow = true;
     };
@@ -21,6 +22,10 @@ angular.module('h54sNavbar', ['sasAdapter', 'h54sDebugWindow'])
         $scope.debug = sasAdapter.isDebugMode();
       });
     });
+
+    $scope.openSideMenu = function() {
+      $mdSidenav('left').toggle();
+    };
 
   }
 ]);

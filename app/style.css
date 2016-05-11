@@ -145,3 +145,7 @@ md-toast.success .md-toast-content {
   background-color: #bbbbbb;
   border-radius: 10px;
 }
+
+md-sidenav {
+  z-index: 1000;
+}

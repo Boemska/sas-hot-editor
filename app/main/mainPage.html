@@ -1,0 +1,14 @@
+<section layout="row" flex>
+  <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+    <md-content layout-padding ng-controller="SideCtrl">
+      <p hide-md show-gt-md>
+        This sidenav is locked open on your device. To go back to the default behavior,
+        narrow your display.
+      </p>
+    </md-content>
+  </md-sidenav>
+  <md-content flex layout-padding ng-controller="MainCtrl">
+    <ht-dynamic spec="htDynamicSpec" data="htData"></ht-dynamic>
+    <button ng-if="htData" type="button" class="btn btn-primary" ng-click="save()">Save</button>
+  </md-content>
+</section>
