@@ -8,10 +8,24 @@ angular.module('myApp.view1', ['ngRoute', 'dynamicHandsontable'])
 }])
 
 .controller('View1Ctrl', ['$scope', 'sasAdapter', '$rootScope', function ($scope, sasAdapter, $rootScope) {
-  sasAdapter.call('/Apps/tableEditor/getTable').then(function(res) {
+  var table = sasAdapter.createTable([
+    {libname: "TESTDATA", memname: "CLASS"}
+  ], 'data');
+
+  sasAdapter.call('/Apps/tableEditor/getTable', table).then(function(res) {
     $scope.htDynamicSpec = res.columnspec;
     $scope.htData = res.tabledata;
   }, function(err) {
-    //error
+    alert(err);
   });
+
+  $scope.save = function() {
+    table.add($scope.htData, 'tabledata');
+    sasAdapter.call('/Apps/tableEditor/writeTable', table).then(function(res) {
+      $scope.htDynamicSpec = res.columnspec;
+      $scope.htData = res.tabledata;
+    }, function(err) {
+      alert(err);
+    });
+  };
 }]);
