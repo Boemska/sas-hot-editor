@@ -20,8 +20,8 @@
     "angular-route": "~1.4.1",
     "angular-sanitize": "~1.4.1",
     "h54s": "latest",
-    "ngHandsontable": "^0.10.0",
     "angular-material": "^1.0.6",
-    "angular-fontawesome": "^1.0.0"
+    "angular-fontawesome": "^1.0.0",
+    "ngHandsontable": "^0.10.0"
   }
 }

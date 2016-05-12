@@ -5,7 +5,8 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
     restrict: 'E',
     scope: {
       spec: '=',
-      data: '='
+      data: '=',
+      errorHandler: '='
     },
     templateUrl: 'dynamicHandsontable/template.html',
     link: function(scope, element) {
@@ -35,12 +36,12 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
                   if(changes[j][1] === scope.spec[i].NAME.toUpperCase()) {
                     if(getType(scope.spec[i].TYPE) !== 'numeric') {
                       if(changes[j][3].length > scope.spec[i].LENGTH) {
-                        alert('Max length exceeded');
+                        scope.errorHandler('Max length exceeded');
                         changes.splice(j, 1);
                       }
                     } else {
                       if(isNaN(changes[j][3])) {
-                        alert('Only numeric values are accepted');
+                        scope.errorHandler('Only numeric values are accepted');
                         changes.splice(j, 1);
                       } else {
                         changes[j][3] = parseFloat(changes[j][3]);
