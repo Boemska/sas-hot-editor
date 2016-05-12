@@ -7,8 +7,8 @@
       </p>
     </md-content>
   </md-sidenav>
-  <md-content layout="column" flex layout-padding ng-controller="MainCtrl">
-    <ht-dynamic flex spec="htDynamicSpec" data="htData" error-handler="onHandsontableError"></ht-dynamic>
+  <md-content layout="row" flex layout-align="center" layout-padding ng-controller="MainCtrl">
+    <ht-dynamic spec="htDynamicSpec" data="htData" error-handler="onHandsontableError"></ht-dynamic>
     <!-- <button ng-if="htData" type="button" class="btn btn-primary" ng-click="save()">Save</button> -->
   </md-content>
 </section>
