@@ -5,10 +5,10 @@
         This sidenav is locked open on your device. To go back to the default behavior,
         narrow your display.
       </p>
+      <md-button class="md-raised md-primary" ng-click="save()">Save</md-button>
     </md-content>
   </md-sidenav>
-  <md-content layout="row" flex layout-align="center" layout-padding ng-controller="MainCtrl">
+  <md-content layout="row" flex layout-align="center" layout-padding>
     <ht-dynamic spec="htDynamicSpec" data="htData" error-handler="onHandsontableError"></ht-dynamic>
-    <!-- <button ng-if="htData" type="button" class="btn btn-primary" ng-click="save()">Save</button> -->
   </md-content>
 </section>
