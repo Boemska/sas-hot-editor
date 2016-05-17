@@ -149,8 +149,3 @@ md-toast.success .md-toast-content {
 .ht_clone_top.handsontable {
   z-index: 10;
 }
-
-.wtHolder {
-  height: auto !important;
-  width: auto !important;
-}

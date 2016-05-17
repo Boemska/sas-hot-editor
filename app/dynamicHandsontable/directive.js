@@ -7,7 +7,9 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
       spec: '=',
       data: '=',
       errorHandler: '=',
-      hotId: '@'
+      hotId: '@',
+      width: '@',
+      height: '@'
     },
     templateUrl: 'dynamicHandsontable/template.html',
     controller: function($scope) {
@@ -35,6 +37,8 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
 
 
           $scope.settings = {
+            autoWrapRow: true,
+            stretchH: 'all',
             beforeChange: function (changes) {
               if(changes.length === 0) return;
 
