@@ -21,9 +21,16 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
   '$scope',
   'sasAdapter',
   '$rootScope',
-  function ($scope, sasAdapter, $rootScope) {
+  '$mdToast',
+  function ($scope, sasAdapter, $rootScope, $mdToast) {
+    var toast = $mdToast.build({
+      hideDelay: 1800,
+      position: 'bottom right'
+    });
+
     $scope.onHandsontableError = function(msg) {
-      console.log(msg);
+      toast.template('<md-toast class="error"><div>' + msg +'</div></md-toast>');
+      $mdToast.show(toast);
     };
 
     var table = sasAdapter.createTable([
