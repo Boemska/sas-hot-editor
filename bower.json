@@ -21,6 +21,7 @@
     "angular-sanitize": "~1.4.1",
     "h54s": "latest",
     "angular-material": "^1.0.6",
-    "angular-fontawesome": "^1.0.0"
+    "angular-fontawesome": "^1.0.0",
+    "ngToast": "ngtoast#^2.0.0"
   }
 }

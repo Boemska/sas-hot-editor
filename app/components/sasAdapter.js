@@ -1,6 +1,6 @@
-angular.module('sasAdapter', ['ngMaterial'])
+angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
 
-.factory('sasAdapter', function($q, $rootScope, $timeout, $mdDialog, $mdMedia, $mdToast) {
+.factory('sasAdapter', function($q, $rootScope, ngToast, $timeout) {
   var _adapter = new h54s({
     isRemoteConfig: true
   });
@@ -18,55 +18,66 @@ angular.module('sasAdapter', ['ngMaterial'])
     },
     call: function(sasProgram, table) {
       var deferred = $q.defer();
-
-      var toast = $mdToast.build({
-        template: '<md-toast><div>Loading&nbsp;<b>{{sasProgram}}</b></div></md-toast>',
-        hideDelay: 1800,
-        position: 'top right',
-        controller: function($scope) {
-          $scope.sasProgram = sasProgram;
-        }
+      var loadingToastId = ngToast.create({
+        className: 'info',
+        content: 'Loading: <b>' + sasProgram + '</b>'
       });
-      $mdToast.show(toast);
 
       _adapter.call(sasProgram, table, function(err, res) {
+        var toast;
+        for(var i = 0; i < ngToast.messages.length; i++) {
+          if(loadingToastId === ngToast.messages[i].id) {
+            toast = ngToast.messages[i];
+            break;
+          }
+        }
 
         if(err && (err.type === 'notLoggedinError' || err.type === 'loginError')) {
-          $mdToast.hide();
-          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
-          $mdDialog.show({
-            controller: 'LoginModalCtrl',
-            templateUrl: 'loginModal/loginModal.html',
-            parent: angular.element(document.body),
-            fullscreen: useFullScreen,
-            escapeToClose: false
+          ngToast.dismiss();
+          $('#login-modal').modal({
+            keyboard: false,
+            backdrop: 'static'
           });
           return;
         }
 
         if(err) {
-          $timeout(function() {
-            toast.template('<md-toast class="error"><div>Error loading&nbsp;<b>{{sasProgram}}</b></div></md-toast>');
-            $mdToast.show(toast);
-          }, 800);
-
-          if(err.type === 'programNotFound') {
-            $mdDialog.show(
-              $mdDialog.alert()
-                .clickOutsideToClose(true)
-                .title('Error loading ' + sasProgram)
-                .textContent('You do not have the correct permissions for this function.')
-                .ok('OK')
-            );
+          if(toast) {
+            toast.className = 'danger';
+            toast.content = 'Error loading <b>' + sasProgram + '</b>';
+          } else {
+            ngToast.create({
+              className: 'danger',
+              content: 'Error loading <b>' + sasProgram + '</b>'
+            });
           }
-
           deferred.reject(err);
         } else {
-          toast.template('<md-toast class="success"><div>Loaded&nbsp;<b>{{sasProgram}}</b></div></md-toast>');
-          $mdToast.show(toast);
+          if(toast) {
+            toast.className = 'success';
+            toast.content = 'Loaded: <b>' + sasProgram + '</b>';
+          } else {
+            ngToast.create({
+              className: 'success',
+              content: 'Loaded: <b>' + sasProgram + '</b>'
+            });
+          }
+
+          if(res.usermessage !== 'blank') {
+            ngToast.create({
+              className: 'info',
+              content: res.usermessage
+            });
+          }
 
           deferred.resolve(res);
         }
+
+        $timeout(function() {
+          if(toast) {
+            ngToast.dismiss(toast.id);
+          }
+        }, 1500);
       });
       return deferred.promise;
     },
