@@ -1,6 +1,6 @@
 angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
 
-.factory('sasAdapter', function($q, $rootScope, ngToast, $timeout) {
+.factory('sasAdapter', function($q, $rootScope, ngToast, $timeout, $mdDialog, $mdMedia) {
   var _adapter = new h54s({
     isRemoteConfig: true
   });
@@ -34,9 +34,13 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
 
         if(err && (err.type === 'notLoggedinError' || err.type === 'loginError')) {
           ngToast.dismiss();
-          $('#login-modal').modal({
-            keyboard: false,
-            backdrop: 'static'
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+          $mdDialog.show({
+            controller: 'LoginModalCtrl',
+            templateUrl: 'loginModal/loginModal.html',
+            parent: angular.element(document.body),
+            fullscreen: useFullScreen,
+            escapeToClose: false
           });
           return;
         }
