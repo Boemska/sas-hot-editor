@@ -15,7 +15,7 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
         height: '@'
       },
       templateUrl: 'dynamicHandsontable/template.html',
-      controller: function($scope) {
+      controller: function($scope, $element) {
         $scope.hotId = 'table-' + Math.random().toString(16).slice(2);
 
         var getType = function(typeInt) {
@@ -38,10 +38,19 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
               };
             });
 
+            if(!$scope.width) {
+              var maxWidth = $element.parent().parent()[0].clientWidth - 32; //32px for margin
+              $scope.width = 0;
+              $scope.spec.forEach(function(s) {
+                $scope.width += parseInt(s.LENGTH) * 15;
+              });
+              $scope.width = Math.min($scope.width, maxWidth);
+            }
 
             $scope.settings = {
               autoWrapRow: true,
               stretchH: 'all',
+              width: $scope.width,
               beforeChange: function (changes) {
                 if(changes.length === 0) return;
 
