@@ -3,7 +3,8 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
 .directive('htDynamic', [
   'hotRegisterer',
   '$timeout',
-  function(hotRegisterer, $timeout) {
+  '$window',
+  function(hotRegisterer, $timeout, $window) {
     return {
       restrict: 'E',
       scope: {
@@ -27,6 +28,26 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
           }
         };
 
+        angular.element($window).bind('resize', function() {
+          var tableWidth = 0;
+          if(!$scope.spec) {
+            return;
+          }
+
+          setTimeout(function() {
+            if($scope.width) {
+              tableWidth = $scope.width;
+            } else {
+              var maxWidth = $element.parent().parent()[0].clientWidth - 32; //32px for margin
+              $scope.spec.forEach(function(s) {
+                tableWidth += parseInt(s.LENGTH) * 15;
+              });
+              tableWidth = Math.min(tableWidth, maxWidth);
+            }
+            updateTableSettings({width: tableWidth});
+          }, 500);
+        });
+
         $scope.$watch('spec', function() {
           if($scope.spec && $scope.data) {
             var tableWidth = 0;
@@ -47,13 +68,7 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
               tableWidth = Math.min(tableWidth, maxWidth);
             }
 
-            var instance = hotRegisterer.getInstance($scope.hotId);
-            if(instance) {
-              //the is already present, but width needs to be updated
-              setTimeout(function() {
-                instance.updateSettings({width: $scope.width || tableWidth});
-              }, 0);
-            }
+            updateTableSettings({width: $scope.width || tableWidth});
 
             $scope.settings = {
               autoWrapRow: true,
@@ -120,6 +135,16 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
         function insertEmptyRow() {
           var instance = hotRegisterer.getInstance($scope.hotId);
           instance.alter('insert_row');
+        }
+
+        function updateTableSettings(settings) {
+          var instance = hotRegisterer.getInstance($scope.hotId);
+          if(instance) {
+            //the is already present, but width needs to be updated
+            setTimeout(function() {
+              instance.updateSettings(settings);
+            }, 0);
+          }
         }
       }
     };
