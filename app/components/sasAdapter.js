@@ -1,6 +1,6 @@
 angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
 
-.factory('sasAdapter', function($q, $rootScope, ngToast, $timeout, $mdDialog, $mdMedia) {
+.factory('sasAdapter', function($q, $rootScope, ngToast, $timeout, $mdDialog, $mdMedia, $mdToast) {
   var _adapter = new h54s({
     isRemoteConfig: true
   });
@@ -68,10 +68,12 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
           }
 
           if(res.usermessage !== 'blank') {
-            ngToast.create({
-              className: 'info',
-              content: res.usermessage
-            });
+            $mdToast.show(
+              $mdToast.simple()
+                .textContent(res.usermessage)
+                .position('bottom right')
+                .hideDelay(1800)
+            );
           }
 
           deferred.resolve(res);
