@@ -20,6 +20,26 @@
           </md-option>
         </md-select>
       </md-input-container>
+      <div layout="column" class="table-info">
+        <md-input-container flex>
+          <label>Description</label>
+          <input value="{{tableInfo.DESCRIPTION}}" readonly="true">
+        </md-input-container>
+        <md-input-container flex>
+          <label>Created</label>
+          <input value="{{tableInfo.DT_CREATED | date:'medium'}}" readonly="true">
+        </md-input-container>
+        <div layout="row">
+          <md-input-container flex="50">
+            <label>Nobs</label>
+            <input value="{{tableInfo.NOBS}}" readonly="true">
+          </md-input-container>
+          <md-input-container flex="50">
+            <label>Nvar</label>
+            <input value="{{tableInfo.NVAR}}" readonly="true">
+          </md-input-container>
+        </div>
+      </div>
       <div flex layout="row">
         <md-button flex="50" ng-disabled="!sideData.library || !sideData.table" class="md-raised md-primary" ng-click="open()">Open</md-button>
         <md-button flex="50" ng-disabled="true" class="md-raised md-primary" ng-click="save()">Save</md-button>

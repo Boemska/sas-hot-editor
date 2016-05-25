@@ -15,6 +15,7 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
   'sasAdapter',
   function($scope, sasAdapter) {
     var tablesMap = {};
+    // $scope.tableInfo = {};
     $scope.libs = [];
     $scope.tables = [];
 
@@ -29,6 +30,21 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
       if(tablesMap[newValue] && tablesMap[newValue].indexOf($scope.sideData.table) === -1) {
         $scope.sideData.table = undefined;
       }
+    });
+
+    $scope.$watch('sideData.table', function() {
+      if(!$scope.sideData.table) {
+        return;
+      }
+      var table = sasAdapter.createTable([
+        {libname: $scope.sideData.library, memname: $scope.sideData.table}
+      ], 'memberDetails');
+
+      sasAdapter.call('/Apps/tableEditor/getMemberDetails', table).then(function(res) {
+        $scope.tableInfo = res.memInfo[0];
+      }, function(err) {
+        alert(err);
+      });
     });
 
     sasAdapter.call('/Apps/tableEditor/startupService').then(function(res) {
