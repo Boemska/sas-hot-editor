@@ -73,6 +73,7 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
   '$mdToast',
   function ($scope, sasAdapter, $rootScope, $mdToast) {
     $scope.sideData = {}; //used in child scope of SideCtrl
+    var table;
 
     var toast = $mdToast.build({
       hideDelay: 1800,
@@ -84,15 +85,20 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
       $mdToast.show(toast);
     };
 
+    $scope.onHandsontableDataEdit = function(changes) {
+      $scope.tableDataChanged = true;
+    };
 
     $scope.open = function() {
-      var table = sasAdapter.createTable([
+      table = sasAdapter.createTable([
         {libname: $scope.sideData.library, memname: $scope.sideData.table}
       ], 'data');
 
       sasAdapter.call('/Apps/tableEditor/getTable', table).then(function(res) {
         $scope.htDynamicSpec = res.columnspec;
         $scope.htData = res.tabledata;
+
+        $scope.tableDataChanged = false;
       }, function(err) {
         alert(err);
       });
@@ -103,6 +109,8 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
       sasAdapter.call('/Apps/tableEditor/writeTable', table).then(function(res) {
         $scope.htDynamicSpec = res.columnspec;
         $scope.htData = res.tabledata;
+
+        $scope.tableDataChanged = false;
       }, function(err) {
         alert(err);
       });

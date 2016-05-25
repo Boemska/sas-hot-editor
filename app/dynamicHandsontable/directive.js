@@ -11,6 +11,7 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
         spec: '=',
         data: '=',
         errorHandler: '=',
+        onDataChange: '=',
         hotId: '@',
         width: '@',
         height: '@'
@@ -127,6 +128,8 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
                   }
                 }
                 rowInd = null;
+
+                $scope.onDataChange(changes);
               }
             };
           }
