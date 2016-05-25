@@ -72,7 +72,8 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
               $mdToast.simple()
                 .textContent(res.usermessage)
                 .position('bottom right')
-                .hideDelay(1800)
+                .hideDelay(10000)
+                .action('OK')
             );
           }
 
