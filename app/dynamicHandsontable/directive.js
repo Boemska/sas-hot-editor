@@ -29,6 +29,7 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
 
         $scope.$watch('spec', function() {
           if($scope.spec && $scope.data) {
+            var tableWidth = 0;
 
             $scope.columns = $scope.spec.map(function(s) {
               return {
@@ -40,17 +41,24 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
 
             if(!$scope.width) {
               var maxWidth = $element.parent().parent()[0].clientWidth - 32; //32px for margin
-              $scope.width = 0;
               $scope.spec.forEach(function(s) {
-                $scope.width += parseInt(s.LENGTH) * 15;
+                tableWidth += parseInt(s.LENGTH) * 15;
               });
-              $scope.width = Math.min($scope.width, maxWidth);
+              tableWidth = Math.min(tableWidth, maxWidth);
+            }
+
+            var instance = hotRegisterer.getInstance($scope.hotId);
+            if(instance) {
+              //the is already present, but width needs to be updated
+              setTimeout(function() {
+                instance.updateSettings({width: $scope.width || tableWidth});
+              }, 0);
             }
 
             $scope.settings = {
               autoWrapRow: true,
               stretchH: 'all',
-              width: $scope.width,
+              width: $scope.width || tableWidth,
               beforeChange: function (changes) {
                 if(changes.length === 0) return;
 
