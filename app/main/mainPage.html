@@ -1,11 +1,29 @@
 <section layout="row" flex>
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-    <md-content layout-padding ng-controller="SideCtrl">
-      <p>
-        This sidenav is locked open on your device. To go back to the default behavior,
-        narrow your display.
+    <md-content layout="column" layout-padding ng-controller="SideCtrl">
+      <p flex>
+        Please select the table you want to edit
       </p>
-      <md-button class="md-raised md-primary" ng-click="save()">Save</md-button>
+      <md-input-container flex>
+        <label>Library</label>
+        <md-select ng-model="sideData.library">
+          <md-option ng-repeat="lib in libs" value="{{lib}}">
+            {{lib}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Table</label>
+        <md-select ng-model="sideData.table">
+          <md-option ng-repeat="table in tables" value="{{table}}">
+            {{table}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <div flex layout="row">
+        <md-button flex="50" ng-disabled="!sideData.library || !sideData.table" class="md-raised md-primary" ng-click="open()">Open</md-button>
+        <md-button flex="50" ng-disabled="true" class="md-raised md-primary" ng-click="save()">Save</md-button>
+      </div>
     </md-content>
   </md-sidenav>
   <div layout-margin layout="row" flex layout-align="center">
