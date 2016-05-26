@@ -20,7 +20,8 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
       var deferred = $q.defer();
       var loadingToastId = ngToast.create({
         className: 'info',
-        content: 'Loading: <b>' + sasProgram + '</b>'
+        content: 'Loading: <b>' + sasProgram + '</b>',
+        timeout: 1e6 //around 16 minutes
       });
 
       _adapter.call(sasProgram, table, function(err, res) {
@@ -49,23 +50,26 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
           if(toast) {
             toast.className = 'danger';
             toast.content = 'Error loading <b>' + sasProgram + '</b>';
-          } else {
-            ngToast.create({
-              className: 'danger',
-              content: 'Error loading <b>' + sasProgram + '</b>'
-            });
           }
+
+          $timeout(function() {
+            if(toast) {
+              ngToast.dismiss(toast.id);
+            }
+          }, 2000);
+
           deferred.reject(err);
         } else {
           if(toast) {
             toast.className = 'success';
             toast.content = 'Loaded: <b>' + sasProgram + '</b>';
-          } else {
-            ngToast.create({
-              className: 'success',
-              content: 'Loaded: <b>' + sasProgram + '</b>'
-            });
           }
+
+          $timeout(function() {
+            if(toast) {
+              ngToast.dismiss(toast.id);
+            }
+          }, 2000);
 
           if(res.usermessage !== 'blank') {
             ngToast.create({
@@ -76,12 +80,6 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
 
           deferred.resolve(res);
         }
-
-        $timeout(function() {
-          if(toast) {
-            ngToast.dismiss(toast.id);
-          }
-        }, 1500);
       });
       return deferred.promise;
     },
