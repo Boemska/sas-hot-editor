@@ -20,8 +20,8 @@
     "angular-route": "~1.4.1",
     "bootstrap": "~3.3.5",
     "bootstrap-validator": "~0.8.1",
-    "ngtoast": "~1.5.4",
     "angular-sanitize": "~1.4.1",
-    "h54s": "latest"
+    "h54s": "latest",
+    "ngToast": "ngtoast#^2.0.0"
   }
 }
