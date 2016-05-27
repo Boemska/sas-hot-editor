@@ -88,7 +88,7 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
                       }).indexOf(changes[j][1]);
 
                       if(getType($scope.spec[i].TYPE) !== 'numeric') {
-                        if(changes[j][3].length > $scope.spec[i].LENGTH) {
+                        if(changes[j][3] && changes[j][3].length > $scope.spec[i].LENGTH) {
                           if($scope.spec[i].LENGTH.toString().slice(-1) === '1') {
                             $scope.errorHandler('Max length of ' + $scope.spec[i].LENGTH + ' character exceeded');
                           } else {
