@@ -106,6 +106,10 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
                           instance.setCellMeta(changes[j][0], colIndex, 'valid', true);
                           changes[j][3] = changes[j][3] && parseFloat(changes[j][3]);
                         }
+
+                        if(changes[j][3] === '') {
+                          changes[j][3] = null;
+                        }
                       }
                     }
                   }
