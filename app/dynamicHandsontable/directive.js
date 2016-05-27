@@ -78,9 +78,15 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
               beforeChange: function (changes) {
                 if(changes.length === 0) return;
 
+                var instance = hotRegisterer.getInstance($scope.hotId);
+
                 for(var i = 0; i < $scope.spec.length; i++) {
                   for(var j = 0; j < changes.length; j++) {
                     if(changes[j][1] === $scope.spec[i].NAME.toUpperCase()) {
+                      var colIndex = $scope.columns.map(function(o) {
+                        return o.data;
+                      }).indexOf(changes[j][1]);
+
                       if(getType($scope.spec[i].TYPE) !== 'numeric') {
                         if(changes[j][3].length > $scope.spec[i].LENGTH) {
                           if($scope.spec[i].LENGTH.toString().slice(-1) === '1') {
@@ -88,13 +94,16 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
                           } else {
                             $scope.errorHandler('Max length of ' + $scope.spec[i].LENGTH + ' characters exceeded');
                           }
-                          changes.splice(j, 1);
+                          instance.setCellMeta(changes[j][0], colIndex, 'valid', false);
+                        } else {
+                          instance.setCellMeta(changes[j][0], colIndex, 'valid', true);
                         }
                       } else {
                         if(isNaN(changes[j][3])) {
                           $scope.errorHandler('Only numeric values are accepted');
-                          changes.splice(j, 1);
+                          instance.setCellMeta(changes[j][0], colIndex, 'valid', false);
                         } else {
+                          instance.setCellMeta(changes[j][0], colIndex, 'valid', true);
                           changes[j][3] = changes[j][3] && parseFloat(changes[j][3]);
                         }
                       }
