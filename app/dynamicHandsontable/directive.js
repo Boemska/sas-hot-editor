@@ -142,7 +142,7 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
                 }
                 rowInd = null;
 
-                $scope.onDataChange(changes);
+                $scope.onDataChange(changes, instance);
               }
             };
           } else {

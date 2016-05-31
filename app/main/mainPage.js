@@ -89,8 +89,15 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
       $mdToast.show(toast);
     };
 
-    $scope.onHandsontableDataEdit = function(changes) {
+    $scope.onHandsontableDataEdit = function(changes, instance) {
       $scope.tableDataChanged = true;
+
+      $scope.tableIsValid = true;
+      instance.getCellsMeta().forEach(function(cell) {
+        if(cell.valid === false) {
+          $scope.tableIsValid = false;
+        }
+      });
     };
 
     $scope.open = function() {

@@ -42,7 +42,7 @@
       </div>
       <div flex layout="row">
         <md-button flex="50" ng-disabled="!sideData.library || !sideData.table || loading" class="md-raised md-primary" ng-click="open()">Open</md-button>
-        <md-button flex="50" ng-disabled="!tableDataChanged || loading" class="md-raised md-primary" ng-click="save()">Save</md-button>
+        <md-button flex="50" ng-disabled="!tableDataChanged || !tableIsValid || loading" class="md-raised md-primary" ng-click="save()">Save</md-button>
       </div>
       <div flex layout="row">
         <md-button flex="50" ng-disabled="!sideData.library || !sideData.table || loading" class="md-raised md-warn" ng-click="delete()">Delete</md-button>
