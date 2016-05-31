@@ -53,6 +53,8 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
             .ariaLabel('Unknown error')
             .ok('OK')
         );
+
+        $scope.loading = false;
       });
     });
 
@@ -136,6 +138,8 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
             .ariaLabel('Unknown error')
             .ok('OK')
         );
+
+        $scope.loading = false;
       });
     };
 
@@ -167,6 +171,8 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
               .ariaLabel('Unknown error')
               .ok('OK')
           );
+
+          $scope.loading = false;
         });
       }
     };
@@ -219,6 +225,8 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
                     .ariaLabel('Unknown error')
                     .ok('OK')
                 );
+
+                $scope.loading = false;
               });
 
               $mdDialog.hide();
