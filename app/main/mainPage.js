@@ -13,7 +13,8 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
 .controller('SideCtrl', [
   '$scope',
   'sasAdapter',
-  function($scope, sasAdapter) {
+  '$mdDialog',
+  function($scope, sasAdapter, $mdDialog) {
     var tablesMap = {};
     $scope.libs = [];
 
@@ -44,7 +45,14 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
       sasAdapter.call('/Apps/tableEditor/getMemberDetails', table).then(function(res) {
         $scope.tableInfo = res.memInfo[0];
       }, function(err) {
-        alert(err);
+        $mdDialog.show(
+          $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title('Error')
+            .textContent(err.message || 'Unknown error occurred. Please check your internet connection and try again.')
+            .ariaLabel('Unknown error')
+            .ok('OK')
+        );
       });
     });
 
@@ -62,7 +70,14 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
         }
       });
     }, function(err) {
-      alert(err);
+      $mdDialog.show(
+        $mdDialog.alert()
+          .clickOutsideToClose(true)
+          .title('Error')
+          .textContent(err.message || 'Unknown error occurred. Please check your internet connection and try again.')
+          .ariaLabel('Unknown error')
+          .ok('OK')
+      );
     });
   }
 ])
@@ -113,7 +128,14 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
 
         $scope.tableDataChanged = false;
       }, function(err) {
-        alert(err);
+        $mdDialog.show(
+          $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title('Error')
+            .textContent(err.message || 'Unknown error occurred. Please check your internet connection and try again.')
+            .ariaLabel('Unknown error')
+            .ok('OK')
+        );
       });
     };
 
@@ -137,7 +159,14 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
 
           $scope.tableDataChanged = false;
         }, function(err) {
-          alert(err);
+          $mdDialog.show(
+            $mdDialog.alert()
+              .clickOutsideToClose(true)
+              .title('Error')
+              .textContent(err.message || 'Unknown error occurred. Please check your internet connection and try again.')
+              .ariaLabel('Unknown error')
+              .ok('OK')
+          );
         });
       }
     };
@@ -182,7 +211,14 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
                 delete $scope.local;
               }, function(err) {
                 delete $scope.local;
-                alert(err);
+                $mdDialog.show(
+                  $mdDialog.alert()
+                    .clickOutsideToClose(true)
+                    .title('Error')
+                    .textContent(err.message || 'Unknown error occurred. Please check your internet connection and try again.')
+                    .ariaLabel('Unknown error')
+                    .ok('OK')
+                );
               });
 
               $mdDialog.hide();
