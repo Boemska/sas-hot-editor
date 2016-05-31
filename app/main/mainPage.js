@@ -157,19 +157,30 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
     };
 
     $scope.delete = function() {
-      table = sasAdapter.createTable([
-        {libname: $scope.sideData.library, memname: $scope.sideData.table}
-      ], 'data');
+      var confirm = $mdDialog.confirm()
+        .title('Delete')
+        .textContent('Are you sure you want to delete table ' + $scope.sideData.table + '?')
+        .ariaLabel('Delete table')
+        .ok('Delete')
+        .cancel('Cancel');
+      $mdDialog.show(confirm).then(function() {
+        table = sasAdapter.createTable([
+          {libname: $scope.sideData.library, memname: $scope.sideData.table}
+        ], 'data');
 
-      sasAdapter.call('/Apps/tableEditor/deleteTable', table).then(function(res) {
-        for(var i = 0; i < $scope.tables.length; i++) {
-          if($scope.sideData.table.toLowerCase() === $scope.tables[i].toLowerCase()) {
-            $scope.tables.splice(i, 1);
-            $scope.sideData.table = undefined;
-            return;
+        sasAdapter.call('/Apps/tableEditor/deleteTable', table).then(function(res) {
+          for(var i = 0; i < $scope.tables.length; i++) {
+            if($scope.sideData.table.toLowerCase() === $scope.tables[i].toLowerCase()) {
+              $scope.tables.splice(i, 1);
+              $scope.sideData.table = null;
+              $scope.htData = null;
+              $scope.htDynamicSpec = null;
+              return;
+            }
           }
-        }
+        });
       });
+
     };
   }
 ]);

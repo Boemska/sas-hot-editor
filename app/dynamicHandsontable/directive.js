@@ -145,6 +145,8 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
                 $scope.onDataChange(changes);
               }
             };
+          } else {
+            $scope.columns = null;
           }
         });
 
