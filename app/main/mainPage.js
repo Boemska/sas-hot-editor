@@ -144,33 +144,52 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
 
     $scope.saveAs = function() {
       //TODO: use template with required input field
-      var confirm = $mdDialog.prompt()
-        .title('Save As')
-        .textContent('Save the table as:')
-        .placeholder('New Table Name')
-        .ariaLabel('Table Name')
-        .ok('OK')
-        .cancel('Cancel');
-      $mdDialog.show(confirm).then(function(result) {
-        $scope.loading = true;
+      $mdDialog.show({
+        scope: $scope,
+        preserveScope: true,
+        controller: [
+          '$scope',
+          function($scope) {
+            $scope.local = {};
 
-        table = sasAdapter.createTable([
-          {libname: $scope.sideData.library, memname: result}
-        ], 'data', 10 * 1000);
-        table.add($scope.htData, 'tabledata');
+            $scope.local.cancel = function() {
+              delete $scope.local;
+              $mdDialog.hide();
+            };
 
-        sasAdapter.call('/Apps/tableEditor/writeTable', table).then(function(res) {
-          $scope.tables.push(result);
-          $scope.sideData.table = result;
+            $scope.local.save = function() {
+              if(!$scope.local.table) {
+                return;
+              }
+              $scope.loading = true;
 
-          $scope.loading = false;
-          $scope.htDynamicSpec = res.columnspec;
-          $scope.htData = res.tabledata;
+              table = sasAdapter.createTable([
+                {libname: $scope.sideData.library, memname: $scope.local.table}
+              ], 'data', 10 * 1000);
+              table.add($scope.htData, 'tabledata');
 
-          $scope.tableDataChanged = false;
-        }, function(err) {
-          alert(err);
-        });
+              sasAdapter.call('/Apps/tableEditor/writeTable', table).then(function(res) {
+                $scope.tables.push($scope.local.table);
+                $scope.sideData.table = $scope.local.table;
+                delete $scope.local.table;
+
+                $scope.loading = false;
+                $scope.htDynamicSpec = res.columnspec;
+                $scope.htData = res.tabledata;
+
+                $scope.tableDataChanged = false;
+
+                delete $scope.local;
+              }, function(err) {
+                delete $scope.local;
+                alert(err);
+              });
+
+              $mdDialog.hide();
+            };
+          }
+        ],
+        templateUrl: 'main/saveAsDialog.html'
       });
     };
 
