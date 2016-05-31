@@ -118,17 +118,28 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
     };
 
     $scope.save = function() {
-      $scope.loading = true;
-      table.add($scope.htData, 'tabledata');
-      sasAdapter.call('/Apps/tableEditor/writeTable', table).then(function(res) {
-        $scope.loading = false;
-        $scope.htDynamicSpec = res.columnspec;
-        $scope.htData = res.tabledata;
+      if($scope.tableIsValid === false) {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title('Save Error')
+            .textContent('Your data is invalid and cannot be saved. Please check the table for red cells.')
+            .ariaLabel('Save Error - invalid table data')
+            .ok('OK')
+        );
+      } else {
+        $scope.loading = true;
+        table.add($scope.htData, 'tabledata');
+        sasAdapter.call('/Apps/tableEditor/writeTable', table).then(function(res) {
+          $scope.loading = false;
+          $scope.htDynamicSpec = res.columnspec;
+          $scope.htData = res.tabledata;
 
-        $scope.tableDataChanged = false;
-      }, function(err) {
-        alert(err);
-      });
+          $scope.tableDataChanged = false;
+        }, function(err) {
+          alert(err);
+        });
+      }
     };
 
     $scope.saveAs = function() {
