@@ -50,8 +50,9 @@
       </div>
     </md-content>
   </md-sidenav>
-  <div layout-margin layout="row" flex layout-align="center">
-    <md-content layout="row">
+  <div layout-margin layout="row" flex layout-align="center" flow-drops flow-drag-enter="style={border:'2px dashed #7e97bb', position: 'relative'}; fileOver=true" flow-drag-leave="style={}; fileOver=false" ng-style="style">
+    <span class="center" ng-show="fileOver">Drop your file here</span>
+    <md-content ng-show="!fileOver" layout="row">
       <ht-dynamic spec="htDynamicSpec" data="htData" error-handler="onHandsontableError" on-data-change="onHandsontableDataEdit"></ht-dynamic>
     </md-content>
   </div>
