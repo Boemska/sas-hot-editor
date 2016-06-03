@@ -261,7 +261,24 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
           }
         });
       });
-
     };
+
+    $scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+      console.log(flowFile.progress());
+    });
+
+    $scope.$on('flow::filesSubmitted', function (event, $flow, flowFile) {
+      $flow.upload();
+    });
+
+    $scope.$on('flow::fileSuccess', function(event, $flow, flowFile) {
+      console.log(flowFile);
+      console.log(flowFile.progress());
+    });
+
+    $scope.$on('flow::fileProgress', function (event, $flow, flowFile) {
+      console.log(flowFile.progress());
+      console.log('file progress');
+    });
   }
 ]);
