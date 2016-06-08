@@ -14,7 +14,8 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
   '$scope',
   'sasAdapter',
   '$mdDialog',
-  function($scope, sasAdapter, $mdDialog) {
+  'ngmTour',
+  function($scope, sasAdapter, $mdDialog, ngmTour) {
     var tablesMap = {};
     $scope.libs = [];
 
@@ -59,6 +60,10 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
     });
 
     sasAdapter.call('/Apps/tableEditor/startupService').then(function(res) {
+      if(!ngmTour.isDone()) {
+        ngmTour.start();
+      }
+
       res.libsmems.forEach(function(lib) {
         if($scope.libs.indexOf(lib.LIBNAME) === -1) {
           $scope.libs.push(lib.LIBNAME);

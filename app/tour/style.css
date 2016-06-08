@@ -1,0 +1,45 @@
+#tour {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 999;
+  visibility: hidden;
+}
+
+#tour .overlay {
+  pointer-events: none;
+  position: absolute;
+  visibility: visible;
+  width: 0;
+  height: 0;
+  transition-duration: 0.25s, 0.25s, 0.5s;
+  transition-property: height, width, box-shadow;
+  box-shadow: rgba(20, 129, 184, 0.7) 0px 0px 0px 100vmax;
+  transform: translate(-50%, -50%);
+}
+
+#tour .wrapper {
+  position: absolute;
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 0;
+  transition-property: opacity;
+  transition-delay: 0.25s;
+  transform: translate(-50%, -50%);
+}
+
+#tour .message {
+  margin: 6px 8px;
+  color: #eee;
+  font-size: 24px;
+  text-align: center;
+}
+
+#tour .button {
+  /*float: right;*/
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+}

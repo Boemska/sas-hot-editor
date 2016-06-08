@@ -1,10 +1,10 @@
 <section layout="row" flex>
-  <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+  <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" md-is-open="true">
     <md-content layout="column" layout-padding ng-controller="SideCtrl">
       <p flex>
         Please select the table you want to edit
       </p>
-      <md-input-container flex>
+      <md-input-container flex ngm-tour-step="1" ngm-tour-msg="First select your <b>library</b>" ngm-tour-color='#faad39'>
         <label>Library</label>
         <md-select ng-model="sideData.library">
           <md-option ng-repeat="lib in libs" value="{{lib}}">
@@ -12,7 +12,7 @@
           </md-option>
         </md-select>
       </md-input-container>
-      <md-input-container flex>
+      <md-input-container flex ngm-tour-step="2" ngm-tour-msg="Then select the <b>table</b>" ngm-tour-color="#3F51B5">
         <label>Table</label>
         <md-select ng-model="sideData.table">
           <md-option ng-repeat="table in tables" value="{{table}}">
@@ -20,7 +20,7 @@
           </md-option>
         </md-select>
       </md-input-container>
-      <div layout="column" class="table-info">
+      <div layout="column" class="table-info" ngm-tour-step="3" ngm-tour-msg="This is the table information">
         <md-input-container flex>
           <label>Description</label>
           <input value="{{tableInfo.DESCRIPTION}}" readonly="true">
@@ -50,7 +50,7 @@
       </div>
     </md-content>
   </md-sidenav>
-  <div flow-file-added="console.log('test')" layout-margin layout="row" flex layout-align="center" flow-drop flow-drag-enter="style={border:'2px dashed #7e97bb', position: 'relative'}; fileOver=true" flow-drag-leave="style={}; fileOver=false" ng-style="style">
+  <div ngm-tour-step="3" ngm-tour-msg="You can drop files here to upload" flow-file-added="console.log('test')" layout-margin layout="row" flex layout-align="center" flow-drop flow-drag-enter="style={border:'2px dashed #7e97bb', position: 'relative'}; fileOver=true" flow-drag-leave="style={}; fileOver=false" ng-style="style">
     <span class="center" ng-show="fileOver">Drop your file here</span>
     <md-content ng-show="!fileOver" layout="row">
       <ht-dynamic spec="htDynamicSpec" data="htData" error-handler="onHandsontableError" on-data-change="onHandsontableDataEdit"></ht-dynamic>

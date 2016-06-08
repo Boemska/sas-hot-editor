@@ -6,6 +6,7 @@ angular.module('myApp', [
   'h54sLoginModal',
   'h54sNavbar',
   'flow',
+  'ngmTour',
   'myApp.main',
 ])
 
