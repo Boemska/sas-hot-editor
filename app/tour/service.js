@@ -75,16 +75,20 @@ angular.module('ngmTour', [])
         if(document.body.clientWidth - boundingRect.right > boundingRect.left) {
           //message and button should be on the right
           wrapperEl[0].style.top = '50%';
-          wrapperEl[0].style.right = boundingRect.right / 2 + 'px';
+          wrapperEl[0].style.left = null;
+          wrapperEl[0].style.right = (document.body.clientWidth - boundingRect.width - boundingRect.left - 2) / 2 + 'px';
+          wrapperEl[0].style.transform = 'translate(50%, -50%)';
           if(wrapperEl[0].clientWidth > boundingRect.right) {
-            wrapperEl[0].style.width = boundingRect.right - 4 + 'px';
+            wrapperEl[0].style.width = boundingRect.right + 'px';
           }
         } else {
           //message and button should be on the left
           wrapperEl[0].style.top = '50%';
-          wrapperEl[0].style.left = boundingRect.left / 2 + 'px';
+          wrapperEl[0].style.right = null;
+          wrapperEl[0].style.left = (document.body.clientWidth - boundingRect.width - (document.body.clientWidth - boundingRect.right) - 2) / 2 + 'px';
+          wrapperEl[0].style.transform = 'translate(-50%, -50%)';
           if(wrapperEl[0].clientWidth > boundingRect.left) {
-            wrapperEl[0].style.width = boundingRect.left - 4 + 'px';
+            wrapperEl[0].style.width = boundingRect.left + 'px';
           }
         }
 

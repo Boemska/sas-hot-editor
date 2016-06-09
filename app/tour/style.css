@@ -27,16 +27,14 @@
   opacity: 0;
   transition-property: opacity;
   transition-delay: 0.25s;
-  transform: translate(-50%, -50%);
 }
 
 #tour .message {
-  margin: 6px 8px;
   color: #fff;
   font-size: 24px;
   text-align: center;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 #tour .button {
