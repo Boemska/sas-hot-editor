@@ -17,8 +17,8 @@ angular.module('ngmTour', [])
 
     angular.element(document.body).append('<div id="tour"></div>');
     tourEl = angular.element(document.querySelector('#tour'));
+    tourEl.append('<div class="wrapper"><div class="message"></div><md-button class="md-button button ">Next</md-button></div>');
 
-    tourEl.append('<div class="wrapper"><div class="message"></div><md-button class="md-button md-ink-ripple button md-raised md-primary">Next</md-button></div>');
     wrapperEl = angular.element(document.querySelector('#tour .wrapper'));
     messageEl = angular.element(document.querySelector('#tour .message'));
     nextButtonEl = angular.element(document.querySelector('#tour .button'));
@@ -125,7 +125,7 @@ angular.module('ngmTour', [])
     }
 
     return {
-      start: function() {  
+      start: function() {
         display();
       },
       isDone: function() {

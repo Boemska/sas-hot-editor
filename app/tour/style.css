@@ -32,9 +32,11 @@
 
 #tour .message {
   margin: 6px 8px;
-  color: #eee;
+  color: #fff;
   font-size: 24px;
   text-align: center;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 #tour .button {
@@ -42,4 +44,6 @@
   margin-left: auto;
   margin-right: auto;
   display: table;
+  color: #fff;
+  border: 2px solid #fff;
 }
