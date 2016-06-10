@@ -23,7 +23,6 @@
     "angular-material": "^1.0.6",
     "angular-fontawesome": "^1.0.0",
     "ngHandsontable": "^0.10.0",
-    "ngToast": "ngtoast#^2.0.0",
-    "ng-flow": "~2"
+    "ngToast": "ngtoast#^2.0.0"
   }
 }
