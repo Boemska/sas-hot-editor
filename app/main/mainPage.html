@@ -50,8 +50,7 @@
       </div>
     </md-content>
   </md-sidenav>
-  <div ngm-tour-step="3" ngm-tour-msg="You can drop files here to upload" flow-file-added="console.log('test')" layout-margin layout="row" flex layout-align="center" flow-drop flow-drag-enter="style={border:'2px dashed #7e97bb', position: 'relative'}; fileOver=true" flow-drag-leave="style={}; fileOver=false" ng-style="style">
-    <span class="center" ng-show="fileOver">Drop your file here</span>
+  <div ngm-tour-step="3" ngm-tour-msg="You can drop files here to upload" layout-margin layout="row" flex layout-align="center" ng-upload="onUploadDone">
     <md-content ng-show="!fileOver" layout="row">
       <ht-dynamic spec="htDynamicSpec" data="htData" error-handler="onHandsontableError" on-data-change="onHandsontableDataEdit"></ht-dynamic>
     </md-content>

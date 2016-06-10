@@ -3,11 +3,6 @@ angular.module('ngmTour', [])
 .factory('ngmTour', [
   '$mdMedia',
   function($mdMedia) {
-    //do not display tour on small devices
-    if(!$mdMedia('gt-sm')) {
-      return;
-    }
-
     var items = document.querySelectorAll('[ngm-tour-step]');
 
     var itemInd = 0,
@@ -41,9 +36,7 @@ angular.module('ngmTour', [])
     });
 
     function clean() {
-      if(overlayEl[0] && overlayEl[0].parentNode) {
-        overlayEl[0].parentNode.removeChild(overlayEl[0]);
-      }
+      overlayEl.remove();
       wrapperEl[0].style['transition-delay'] = '0s';
       wrapperEl[0].style['transition-duration'] = '0s';
       wrapperEl[0].style.opacity = 0;
@@ -143,6 +136,10 @@ angular.module('ngmTour', [])
 
     return {
       start: function() {
+        //do not display tour on small devices
+        if(!$mdMedia('gt-sm')) {
+          return;
+        }
         display();
       },
       isDone: function() {
