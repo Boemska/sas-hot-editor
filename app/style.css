@@ -164,3 +164,15 @@ md-toast.success .md-toast-content {
   left: 50%;
   transform: translate(-50%, -100%);
 }
+
+/******** IE 11 **************/
+md-sidenav md-content {
+  height: 100%;
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+   .table-info {
+     display: none;
+   }
+}
+/*****************************/

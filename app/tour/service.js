@@ -41,7 +41,9 @@ angular.module('ngmTour', [])
     });
 
     function clean() {
-      overlayEl[0].remove();
+      if(overlayEl[0] && overlayEl[0].parentNode) {
+        overlayEl[0].parentNode.removeChild(overlayEl[0]);
+      }
       wrapperEl[0].style['transition-delay'] = '0s';
       wrapperEl[0].style['transition-duration'] = '0s';
       wrapperEl[0].style.opacity = 0;
@@ -51,6 +53,9 @@ angular.module('ngmTour', [])
     }
 
     function display() {
+      if(currentItem.clientWidth === 0 && currentItem.clientHeight === 0) {
+        nextButtonEl.triggerHandler('click');
+      }
       var boundingRect = currentItem.getBoundingClientRect();
 
       tourEl.prepend('<div class="overlay"></div>');
@@ -61,7 +66,13 @@ angular.module('ngmTour', [])
         var r = parseInt('0x' + color.substr(1, 2)),
             g = parseInt('0x' + color.substr(3, 2)),
             b = parseInt('0x' + color.substr(5, 2));
-        overlayEl[0].style['box-shadow'] = 'rgba(' + r + ', ' + g + ', ' + b + ', 0.7) 0px 0px 0px 100vmax';
+        if(window.document.documentMode) {
+          overlayEl[0].style['box-shadow'] = '0px 0px 0px 10000px rgba(' + r + ', ' + g + ', ' + b + ', 0.7)';
+        } else {
+          overlayEl[0].style['box-shadow'] = '0px 0px 0px 100vmax rgba(' + r + ', ' + g + ', ' + b + ', 0.7)';
+        }
+      } else if(window.document.documentMode) {
+        overlayEl[0].style['box-shadow'] = '0px 0px 0px 10000px rgba(20, 129, 184, 0.7)';
       }
 
       overlayEl[0].style.top = boundingRect.top + currentItem.clientHeight / 2 + 'px';
@@ -70,6 +81,8 @@ angular.module('ngmTour', [])
       overlayEl[0].style.height = boundingRect.height + 2 + 'px';
 
       messageEl[0].innerHTML = angular.element(currentItem).attr('ngm-tour-msg');
+
+      wrapperEl[0].style.width = 'auto';
 
       if(!angular.element(currentItem).attr('ngm-tour-float')) {
         if(document.body.clientWidth - boundingRect.right > boundingRect.left) {
@@ -116,7 +129,7 @@ angular.module('ngmTour', [])
           overlayEl[0].style.height = selectMenuBoundingRect.height + 2 + 'px';
 
           angular.element(document.querySelectorAll('.md-select-menu-container.md-active md-option')).on('click', onSelectItemClick);
-        }, 100);
+        }, window.document.documentMode ? 1000 : 100 /*is IE*/);
       }
     }
 
@@ -134,7 +147,7 @@ angular.module('ngmTour', [])
       },
       isDone: function() {
         if(window.localStorage) {
-          if(window.localStorage.getItem('tourDone')) return;
+          return window.localStorage.getItem('tourDone');
         } else {
           alert('Your browser does not support Local Storage.\nPlease upgrade to a newer browser');
         }
