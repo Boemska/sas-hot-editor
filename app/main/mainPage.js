@@ -270,7 +270,12 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
 
     $scope.onUploadDone = function(res) {
       $scope.htDynamicSpec = res.columnspec;
-      $scope.htData = res.tabledata;
+      $scope.htData = res.tabledata.map(function(row) {
+        for(var key in row) {
+          row[key] = decodeURIComponent(row[key]);
+        }
+        return row;
+      });
       $scope.loading = false;
     };
   }
