@@ -270,13 +270,32 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
 
     $scope.onUploadDone = function(res) {
       $scope.htDynamicSpec = res.columnspec;
-      $scope.htData = res.tabledata.map(function(row) {
-        for(var key in row) {
-          row[key] = decodeURIComponent(row[key]);
+      $scope.htData = [];
+      var error = false;
+      for(var i = 0; i < res.tabledata.length; i++) {
+        if(error) break;
+        for(var key in res.tabledata[i]) {
+          try {
+            res.tabledata[i][key] = decodeURIComponent(res.tabledata[i][key]);
+          } catch(e) {
+            $mdDialog.show(
+              $mdDialog.alert()
+              .clickOutsideToClose(true)
+              .title('Error')
+              .textContent('The editor doesn\'t support special characters.')
+              .ariaLabel('Error')
+              .ok('OK')
+            );
+            error = true;
+            break;
+          }
         }
-        return row;
-      });
+        if(!error) {
+          $scope.htData.push(res.tabledata[i]);
+        }
+      }
       $scope.loading = false;
+      $scope.$apply();
     };
   }
 ]);

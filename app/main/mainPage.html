@@ -51,7 +51,7 @@
     </md-content>
   </md-sidenav>
   <div ngm-tour-step="3" ngm-tour-msg="You can drop files here to upload" layout-margin layout="row" flex layout-align="center" ng-upload="onUploadDone">
-    <md-content ng-show="!fileOver" layout="row">
+    <md-content ng-if="!fileOver" layout="row">
       <ht-dynamic spec="htDynamicSpec" data="htData" error-handler="onHandsontableError" on-data-change="onHandsontableDataEdit"></ht-dynamic>
     </md-content>
   </div>
