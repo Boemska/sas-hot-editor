@@ -183,63 +183,74 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
     };
 
     $scope.saveAs = function() {
-      //TODO: use template with required input field
-      $mdDialog.show({
-        scope: $scope,
-        preserveScope: true,
-        controller: [
-          '$scope',
-          function($scope) {
-            $scope.local = {};
+      if(!$scope.sideData.library) {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title('Library not selected')
+            .textContent('Please select a target library first')
+            .ariaLabel('Library not selected')
+            .ok('OK')
+        );
+      } else {
+        //TODO: use template with required input field
+        $mdDialog.show({
+          scope: $scope,
+          preserveScope: true,
+          controller: [
+            '$scope',
+            function($scope) {
+              $scope.local = {};
 
-            $scope.local.cancel = function() {
-              delete $scope.local;
-              $mdDialog.hide();
-            };
-
-            $scope.local.save = function() {
-              if(!$scope.local.table) {
-                return;
-              }
-              $scope.loading = true;
-
-              table = sasAdapter.createTable([
-                {libname: $scope.sideData.library, memname: $scope.local.table}
-              ], 'data', 10 * 1000);
-              table.add($scope.htData, 'tabledata');
-
-              sasAdapter.call('/Apps/tableEditor/writeTable', table).then(function(res) {
-                $scope.tables.push($scope.local.table);
-                $scope.sideData.table = $scope.local.table;
-                delete $scope.local.table;
-
-                $scope.loading = false;
-                $scope.htDynamicSpec = res.columnspec;
-                $scope.htData = res.tabledata;
-
-                $scope.tableDataChanged = false;
-
+              $scope.local.cancel = function() {
                 delete $scope.local;
-              }, function(err) {
-                delete $scope.local;
-                $mdDialog.show(
-                  $mdDialog.alert()
+                $mdDialog.hide();
+              };
+
+              $scope.local.save = function() {
+                if(!$scope.local.table) {
+                  return;
+                }
+                $scope.loading = true;
+
+                table = sasAdapter.createTable([
+                  {libname: $scope.sideData.library, memname: $scope.local.table}
+                ], 'data', 10 * 1000);
+                table.add($scope.htData, 'tabledata');
+
+                sasAdapter.call('/Apps/tableEditor/writeTable', table).then(function(res) {
+                  $scope.tables.push($scope.local.table);
+                  $scope.sideData.table = $scope.local.table;
+                  delete $scope.local.table;
+
+                  $scope.loading = false;
+                  $scope.htDynamicSpec = res.columnspec;
+                  $scope.htData = res.tabledata;
+
+                  $scope.tableDataChanged = false;
+
+                  delete $scope.local;
+                }, function(err) {
+                  delete $scope.local;
+                  $mdDialog.show(
+                    $mdDialog.alert()
                     .clickOutsideToClose(true)
                     .title('Error')
                     .textContent(err.message || 'Unknown error occurred. Please check your internet connection and try again.')
                     .ariaLabel('Unknown error')
                     .ok('OK')
-                );
+                  );
 
-                $scope.loading = false;
-              });
+                  $scope.loading = false;
+                });
 
-              $mdDialog.hide();
-            };
-          }
-        ],
-        templateUrl: 'main/saveAsDialog.html'
-      });
+                $mdDialog.hide();
+              };
+            }
+          ],
+          templateUrl: 'main/saveAsDialog.html'
+        });
+      }
     };
 
     $scope.delete = function() {

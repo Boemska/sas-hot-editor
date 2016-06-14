@@ -65,7 +65,7 @@ angular.module('myApp.main')
           xhr.onload = function(e) {
             scope.uploadProgress = 100;
             clean();
-            scope.callback(JSON.parse(this.responseText));
+            scope.callback(JSON.parse(this.responseText.replace(/(\r\n|\r|\n)/g, '')));
             scope.uploading = false;
             scope.fileOver = false;
             scope.$parent.$apply();
