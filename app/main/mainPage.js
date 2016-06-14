@@ -116,7 +116,7 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
 
       $scope.tableIsValid = true;
       instance.getCellsMeta().forEach(function(cell) {
-        if(cell.valid === false) {
+        if(cell && cell.valid === false) {
           $scope.tableIsValid = false;
         }
       });
