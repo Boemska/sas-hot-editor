@@ -6,6 +6,9 @@ angular.module('myApp.main')
   function($mdDialog, $compile) {
     return {
       restrict: 'A',
+      templateUrl: 'main/dropFile.html',
+      replace: false,
+      transclude: true,
       scope: {
         callback: '=ngUpload'
       },
@@ -14,17 +17,16 @@ angular.module('myApp.main')
 
         element.bind('dragenter', function(e) {
           if(scope.uploading) return;
-          scope.$parent.fileOver = true;
+          scope.fileOver = true;
           scope.$parent.$apply();
           e.preventDefault();
           e.stopPropagation();
           element[0].style.border = '2px dashed #7e97bb';
           element[0].style.position = 'relative';
-          element.append('<span style="pointer-events: none;" class="center dropElements">Drop your file here</span>');
         });
         element.bind('dragleave', function(e) {
           if(scope.uploading) return;
-          scope.$parent.fileOver = false;
+          scope.fileOver = false;
           scope.$parent.$apply();
           clean();
         });
@@ -35,7 +37,7 @@ angular.module('myApp.main')
         element.bind('drop', function(e) {
           e.preventDefault();
           if(scope.uploading) return;
-          scope.$parent.fileOver = true;
+          scope.fileOver = true;
           scope.$parent.$apply();
           scope.uploading = true;
           e.stopPropagation();
@@ -55,11 +57,6 @@ angular.module('myApp.main')
             xhr = new XMLHttpRequest();
           }
 
-          element.append('<span id="dropProgress" style="width: 50%" class="center dropElements"></span>');
-          var dropProgressEl = angular.element(document.querySelector('#dropProgress'));
-          dropProgressEl.html('<md-progress-linear ng-show="uploading" class="center dropElements" md-mode="determinate" value="{{uploadProgress}}"></md-progress-linear>');
-          $compile(dropProgressEl.contents())(scope);
-
           xhr.upload.onprogress = function(e) {
             scope.uploadProgress = Math.ceil((e.loaded / e.total) * 100);
             scope.$apply();
@@ -70,13 +67,13 @@ angular.module('myApp.main')
             clean();
             scope.callback(JSON.parse(this.responseText));
             scope.uploading = false;
-            scope.$parent.fileOver = false;
+            scope.fileOver = false;
             scope.$parent.$apply();
           };
 
           xhr.onerror = function(e) {
             scope.uploading = false;
-            scope.$parent.fileOver = false;
+            scope.fileOver = false;
             scope.$parent.$apply();
             $mdDialog.show(
               $mdDialog.alert()
@@ -95,7 +92,6 @@ angular.module('myApp.main')
         function clean() {
           element[0].style.border = 'none';
           element[0].style.position = 'static';
-          angular.element(document.querySelectorAll('.dropElements')).remove();
         }
       }
     };

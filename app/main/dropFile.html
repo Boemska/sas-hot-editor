@@ -1,0 +1,6 @@
+<md-content ng-transclude ng-if="!fileOver" layout="row">
+</md-content>
+<span ng-show="fileOver && !uploading" style="pointer-events: none;" class="center">Drop your file here</span>
+<span id="dropProgress" style="width: 50%" class="center dropElements">
+  <md-progress-linear ng-show="uploading" class="center" md-mode="determinate" value="{{uploadProgress}}"></md-progress-linear>
+</span>
