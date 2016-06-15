@@ -287,8 +287,10 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
         if(error) break;
         for(var key in res.tabledata[i]) {
           try {
-            res.tabledata[i][key] = decodeURIComponent(res.tabledata[i][key]);
+            var cellData = typeof res.tabledata[i][key] !== 'string' ? res.tabledata[i][key] : unescape(res.tabledata[i][key]).replace(/[^A-Za-z 0-9 \.,\?""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*/g, '');
+            res.tabledata[i][key] = cellData;
           } catch(e) {
+            console.err(e);
             $mdDialog.show(
               $mdDialog.alert()
               .clickOutsideToClose(true)
