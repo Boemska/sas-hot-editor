@@ -1,52 +1,52 @@
 <section layout="row" flex>
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" md-is-open="true">
-    <md-content layout="column" layout-padding ng-controller="SideCtrl">
-      <p flex>
-        Please select the table you want to edit
-      </p>
-      <md-input-container flex ngm-tour-step="1" ngm-tour-msg="First select your <b>library</b>" ngm-tour-color='#faad39'>
-        <label>Library</label>
-        <md-select ng-model="sideData.library">
-          <md-option ng-repeat="lib in libs" value="{{lib}}">
-            {{lib}}
-          </md-option>
-        </md-select>
-      </md-input-container>
-      <md-input-container flex ngm-tour-step="2" ngm-tour-msg="Then select the <b>table</b>" ngm-tour-color="#3F51B5">
-        <label>Table</label>
-        <md-select ng-model="sideData.table">
-          <md-option ng-repeat="table in tables" value="{{table}}">
-            {{table}}
-          </md-option>
-        </md-select>
-      </md-input-container>
-      <div layout="column" class="table-info" ngm-tour-step="3" ngm-tour-msg="This is the table information">
-        <md-input-container flex>
-          <label>Description</label>
-          <input value="{{tableInfo.DESCRIPTION}}" readonly="true">
+    <md-content ng-controller="SideCtrl">
+      <div layout="column" layout-padding>
+        <p>Please select the table you want to edit</p>
+        <md-input-container flex ngm-tour-step="1" ngm-tour-msg="First select your <b>library</b>" ngm-tour-color='#faad39'>
+          <label>Library</label>
+          <md-select ng-model="sideData.library">
+            <md-option ng-repeat="lib in libs" value="{{lib}}">
+              {{lib}}
+            </md-option>
+          </md-select>
         </md-input-container>
-        <md-input-container flex>
-          <label>Created</label>
-          <input value="{{tableInfo.DT_CREATED | date:'medium'}}" readonly="true">
+        <md-input-container flex ngm-tour-step="2" ngm-tour-msg="Then select the <b>table</b>" ngm-tour-color="#3F51B5">
+          <label>Table</label>
+          <md-select ng-model="sideData.table">
+            <md-option ng-repeat="table in tables" value="{{table}}">
+              {{table}}
+            </md-option>
+          </md-select>
         </md-input-container>
-        <div layout="row">
-          <md-input-container flex="50">
-            <label>Nobs</label>
-            <input value="{{tableInfo.NOBS}}" readonly="true">
+        <div layout="column" class="table-info" ngm-tour-step="3" ngm-tour-msg="This is the table information">
+          <md-input-container flex>
+            <label>Description</label>
+            <input value="{{tableInfo.DESCRIPTION}}" readonly="true">
           </md-input-container>
-          <md-input-container flex="50">
-            <label>Nvar</label>
-            <input value="{{tableInfo.NVAR}}" readonly="true">
+          <md-input-container flex>
+            <label>Created</label>
+            <input value="{{tableInfo.DT_CREATED | date:'medium'}}" readonly="true">
           </md-input-container>
+          <div layout="row">
+            <md-input-container flex="50">
+              <label>Nobs</label>
+              <input value="{{tableInfo.NOBS}}" readonly="true">
+            </md-input-container>
+            <md-input-container flex="50">
+              <label>Nvar</label>
+              <input value="{{tableInfo.NVAR}}" readonly="true">
+            </md-input-container>
+          </div>
         </div>
-      </div>
-      <div flex layout="row">
-        <md-button flex="50" ng-disabled="!sideData.library || !sideData.table || loading" class="md-raised md-primary" ng-click="open()">Open</md-button>
-        <md-button flex="50" ng-disabled="!tableDataChanged || loading" class="md-raised md-primary" ng-click="save()">Save</md-button>
-      </div>
-      <div flex layout="row">
-        <md-button flex="50" ng-disabled="!sideData.library || !sideData.table || loading" class="md-raised md-warn" ng-click="delete()">Delete</md-button>
-        <md-button flex="50" ng-disabled="!htData || loading" class="md-raised md-primary" ng-click="saveAs()">Save As</md-button>
+        <div flex layout="row">
+          <md-button flex="50" ng-disabled="!sideData.library || !sideData.table || loading" class="md-raised md-primary" ng-click="open()">Open</md-button>
+          <md-button flex="50" ng-disabled="!tableDataChanged || loading" class="md-raised md-primary" ng-click="save()">Save</md-button>
+        </div>
+        <div flex layout="row">
+          <md-button flex="50" ng-disabled="!sideData.library || !sideData.table || loading" class="md-raised md-warn" ng-click="delete()">Delete</md-button>
+          <md-button flex="50" ng-disabled="!htData || loading" class="md-raised md-primary" ng-click="saveAs()">Save As</md-button>
+        </div>
       </div>
     </md-content>
   </md-sidenav>
