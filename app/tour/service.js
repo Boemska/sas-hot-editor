@@ -112,7 +112,9 @@ angular.module('ngmTour', [])
           return;
         }
 
-        items = document.querySelectorAll('[ngm-tour-step]');
+        items = Array.prototype.slice.call(document.querySelectorAll('[ngm-tour-step]')).sort(function(itemA, itemB) {
+          return angular.element(itemA).attr('ngm-tour-step') - angular.element(itemB).attr('ngm-tour-step');
+        });
 
         itemInd = 0;
         currentItem = items[0];
