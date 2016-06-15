@@ -6,7 +6,8 @@ angular.module('h54sNavbar', ['sasAdapter', 'h54sDebugWindow'])
   '$rootScope',
   '$sce',
   '$mdSidenav',
-  function($scope, sasAdapter, $rootScope, $sce, $mdSidenav) {
+  'ngmTour',
+  function($scope, sasAdapter, $rootScope, $sce, $mdSidenav, ngmTour) {
     $scope.openDebugWindow = function() {
       $rootScope.showDebugWindow = true;
     };
@@ -27,5 +28,8 @@ angular.module('h54sNavbar', ['sasAdapter', 'h54sDebugWindow'])
       $mdSidenav('left').toggle();
     };
 
+    $scope.showTour = function() {
+      ngmTour.start();
+    };
   }
 ]);

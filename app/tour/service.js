@@ -2,38 +2,9 @@ angular.module('ngmTour', [])
 
 .factory('ngmTour', [
   '$mdMedia',
-  function($mdMedia) {
-    var items = document.querySelectorAll('[ngm-tour-step]');
-
-    var itemInd = 0,
-        currentItem = items[0];
-
-    var tourEl, overlayEl, messageEl, nextButtonEl, wrapperEl;
-
-    angular.element(document.body).append('<div id="tour"></div>');
-    tourEl = angular.element(document.querySelector('#tour'));
-    tourEl.append('<div class="wrapper"><div class="message"></div><md-button class="md-button button ">Next</md-button></div>');
-
-    wrapperEl = angular.element(document.querySelector('#tour .wrapper'));
-    messageEl = angular.element(document.querySelector('#tour .message'));
-    nextButtonEl = angular.element(document.querySelector('#tour .button'));
-
-    nextButtonEl.on('click', function() {
-      if(nextButtonEl[0].innerHTML === 'Close') {
-        tourEl.remove();
-        window.localStorage.setItem('tourDone', true);
-        return;
-      }
-
-      clean();
-
-      if(++itemInd === items.length - 1) {
-        nextButtonEl[0].innerHTML = 'Close';
-      }
-
-      currentItem = items[itemInd];
-      display();
-    });
+  '$document',
+  function($mdMedia, $document) {
+    var items, itemInd, currentItem, tourEl, overlayEl, messageEl, nextButtonEl, wrapperEl;
 
     function clean() {
       overlayEl.remove();
@@ -140,6 +111,38 @@ angular.module('ngmTour', [])
         if(!$mdMedia('gt-sm')) {
           return;
         }
+
+        items = document.querySelectorAll('[ngm-tour-step]');
+
+        itemInd = 0;
+        currentItem = items[0];
+
+        angular.element(document.body).append('<div id="tour"></div>');
+        tourEl = angular.element(document.querySelector('#tour'));
+        tourEl.append('<div class="wrapper"><div class="message"></div><md-button class="md-button button ">Next</md-button></div>');
+
+        wrapperEl = angular.element(document.querySelector('#tour .wrapper'));
+        messageEl = angular.element(document.querySelector('#tour .message'));
+        nextButtonEl = angular.element(document.querySelector('#tour .button'));
+
+        nextButtonEl.on('click', function() {
+          if(nextButtonEl[0].innerHTML === 'Close') {
+            tourEl.remove();
+            tourEl = wrapperEl = messageEl = nextButtonEl = null; //remove reference so the GC can collect it
+            window.localStorage.setItem('tourDone', true);
+            return;
+          }
+
+          clean();
+
+          if(++itemInd === items.length - 1) {
+            nextButtonEl[0].innerHTML = 'Close';
+          }
+
+          currentItem = items[itemInd];
+          display();
+        });
+
         display();
       },
       isDone: function() {

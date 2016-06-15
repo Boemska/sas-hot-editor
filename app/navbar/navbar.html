@@ -11,6 +11,12 @@
         <span class="hide-xs">Debug&nbsp;</span>
         <md-switch class="hide-xs md-primary md-hue-3" ng-click="toggleDebugging()" ng-model="debug" aria-label="Debug"></md-switch>
         <md-button class="hide-xs md-raised" ng-click="openDebugWindow()">Show Log</md-button>
+        <a id="tour-btn" href="" ng-click="showTour()">
+          <fa name="question" size="large"></fa>
+          <md-tooltip md-direction="left">
+            Explain how to use
+          </md-tooltip>
+        </a>
       </div>
     </md-toolbar>
 </nav>

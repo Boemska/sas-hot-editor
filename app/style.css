@@ -176,3 +176,7 @@ md-sidenav md-content {
    }
 }
 /*****************************/
+
+#tour-btn {
+  margin: 0 6px;
+}
