@@ -170,10 +170,16 @@ md-sidenav md-content {
   height: 100%;
 }
 
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-   .table-info {
-     display: none;
-   }
+body {
+  overflow-x: hidden;
+}
+
+.table-info {
+  min-height: 200px;
+}
+
+md-sidenav md-input-container {
+  min-height: 46px;
 }
 /*****************************/
 

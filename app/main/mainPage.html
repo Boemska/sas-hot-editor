@@ -2,8 +2,7 @@
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" md-is-open="true">
     <md-content ng-controller="SideCtrl">
       <div layout="column" layout-padding>
-        <p>Please select the table you want to edit</p>
-        <md-input-container flex ngm-tour-step="1" ngm-tour-msg="First, choose a <b>Library</b>." ngm-tour-color='#faad39'>
+        <md-input-container ngm-tour-step="1" ngm-tour-msg="First, choose a <b>Library</b>." ngm-tour-color='#faad39'>
           <label>Library</label>
           <md-select ng-model="sideData.library">
             <md-option ng-repeat="lib in libs" value="{{lib}}">
@@ -11,7 +10,7 @@
             </md-option>
           </md-select>
         </md-input-container>
-        <md-input-container flex ngm-tour-step="2" ngm-tour-msg="Next, select a <b>Dataset</b>." ngm-tour-color="#3F51B5">
+        <md-input-container ngm-tour-step="2" ngm-tour-msg="Next, select a <b>Dataset</b>." ngm-tour-color="#faad39">
           <label>Table</label>
           <md-select ng-model="sideData.table">
             <md-option ng-repeat="table in tables" value="{{table}}">
@@ -19,7 +18,7 @@
             </md-option>
           </md-select>
         </md-input-container>
-        <div layout="column" class="table-info" ngm-tour-step="3" ngm-tour-msg="The dataset <b>information</b> will be shown here.">
+        <div layout="column" class="table-info" ngm-tour-step="3" ngm-tour-msg="The dataset <b>information</b> will be shown here." ngm-tour-color='#666666'>
           <md-input-container flex>
             <label>Description</label>
             <input value="{{tableInfo.DESCRIPTION}}" readonly="true">
@@ -39,7 +38,7 @@
             </md-input-container>
           </div>
         </div>
-        <div ngm-tour-step="4" ngm-tour-msg="Otherwise, you can <b>open</b> the selected dataset. When you're done editing click <b>save</b>.">
+        <div ngm-tour-step="4" ngm-tour-msg="Otherwise, you can <b>open</b> the selected dataset. When you're done editing click <b>save</b>." ngm-tour-color='#666666'>
           <div flex layout="row">
             <md-button flex="50" ng-disabled="!sideData.library || !sideData.table || loading" class="md-raised md-primary" ng-click="open()">Open</md-button>
             <md-button flex="50" ng-disabled="!tableDataChanged || loading" class="md-raised md-primary" ng-click="save()">Save</md-button>
@@ -52,7 +51,7 @@
       </div>
     </md-content>
   </md-sidenav>
-  <div ngm-tour-step="3" ngm-tour-msg="To upload spreadsheet data, drop the file <b>here</b>." layout-margin layout="row" flex layout-align="center" ng-upload="onUploadDone">
+  <div ngm-tour-step="3" ngm-tour-msg="To upload spreadsheet data, drop the file <b>here." ngm-tour-color='#666666' layout-margin layout="row" flex layout-align="center" ng-upload="onUploadDone">
     <ht-dynamic spec="htDynamicSpec" data="htData" error-handler="onHandsontableError" on-data-change="onHandsontableDataEdit"></ht-dynamic>
   </div>
 </section>
