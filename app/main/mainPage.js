@@ -43,7 +43,7 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
         {libname: $scope.sideData.library, memname: $scope.sideData.table}
       ], 'memberDetails');
 
-      sasAdapter.call('/Apps/tableEditor/getMemberDetails', table).then(function(res) {
+      sasAdapter.call('getMemberDetails', table).then(function(res) {
         $scope.tableInfo = res.memInfo[0];
       }, function(err) {
         $mdDialog.show(
@@ -59,7 +59,7 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
       });
     });
 
-    sasAdapter.call('/Apps/tableEditor/startupService').then(function(res) {
+    sasAdapter.call('startupService').then(function(res) {
       if(!ngmTour.isDone()) {
         ngmTour.start();
       }
@@ -128,7 +128,7 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
         {libname: $scope.sideData.library, memname: $scope.sideData.table}
       ], 'data', 10 * 1000);
 
-      sasAdapter.call('/Apps/tableEditor/getTable', table).then(function(res) {
+      sasAdapter.call('getTable', table).then(function(res) {
         $scope.loading = false;
         $scope.htDynamicSpec = res.columnspec;
         $scope.htData = res.tabledata;
@@ -161,7 +161,7 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
       } else {
         $scope.loading = true;
         table.add($scope.htData, 'tabledata');
-        sasAdapter.call('/Apps/tableEditor/writeTable', table).then(function(res) {
+        sasAdapter.call('writeTable', table).then(function(res) {
           $scope.loading = false;
           $scope.htDynamicSpec = res.columnspec;
           $scope.htData = res.tabledata;
@@ -218,7 +218,7 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
                 ], 'data', 10 * 1000);
                 table.add($scope.htData, 'tabledata');
 
-                sasAdapter.call('/Apps/tableEditor/writeTable', table).then(function(res) {
+                sasAdapter.call('writeTable', table).then(function(res) {
                   $scope.tables.push($scope.local.table);
                   $scope.sideData.table = $scope.local.table;
                   delete $scope.local.table;
@@ -265,7 +265,7 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
           {libname: $scope.sideData.library, memname: $scope.sideData.table}
         ], 'data');
 
-        sasAdapter.call('/Apps/tableEditor/deleteTable', table).then(function(res) {
+        sasAdapter.call('deleteTable', table).then(function(res) {
           for(var i = 0; i < $scope.tables.length; i++) {
             if($scope.sideData.table.toLowerCase() === $scope.tables[i].toLowerCase()) {
               $scope.tables.splice(i, 1);

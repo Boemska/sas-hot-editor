@@ -1,4 +1,4 @@
 {
-  "hostUrl": "hostUrl",
-  "debug": true
+  "metadataRoot": "/Apps/tableEditor/",
+  "debug": false
 }
