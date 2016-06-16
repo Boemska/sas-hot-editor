@@ -2,7 +2,8 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
 
 .factory('sasAdapter', function($q, $rootScope, ngToast, $timeout, $mdDialog, $mdMedia, $mdToast) {
   var _adapter = new h54s({
-    isRemoteConfig: true
+    isRemoteConfig: true,
+    debug: localStorage.getItem('h54sDebug') && localStorage.getItem('h54sDebug') === 'true'
   });
   return {
     login: function(user, pass) {
@@ -95,9 +96,11 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
       if(!_adapter.debug) {
         _adapter.setDebugMode();
         $rootScope.debugMode = true;
+        localStorage.setItem('h54sDebug', true);
       } else {
         _adapter.unsetDebugMode();
         $rootScope.debugMode = false;
+        localStorage.setItem('h54sDebug', false);
       }
     },
     getDebugData: function() {
