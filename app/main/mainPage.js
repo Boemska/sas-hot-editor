@@ -193,7 +193,6 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
             .ok('OK')
         );
       } else {
-        //TODO: use template with required input field
         $mdDialog.show({
           scope: $scope,
           preserveScope: true,
@@ -220,7 +219,7 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
 
                 sasAdapter.call('writeTable', table).then(function(res) {
                   $scope.tables.push($scope.local.table);
-                  $scope.sideData.table = $scope.local.table;
+                  $scope.sideData.table = $scope.local.table.toUpperCase();
                   delete $scope.local.table;
 
                   $scope.loading = false;
@@ -305,6 +304,7 @@ angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
         }
         if(!error) {
           $scope.htData.push(res.tabledata[i]);
+          $scope.sideData.table = null;
         }
       }
       $scope.loading = false;
