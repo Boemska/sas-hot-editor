@@ -1,4 +1,4 @@
-angular.module('myApp.main', ['ngRoute', 'dynamicHandsontable'])
+angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
 
 .config([
   '$routeProvider',

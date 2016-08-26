@@ -1,4 +1,4 @@
-angular.module('myApp.main')
+angular.module('sasHotEditor.main')
 
 .directive('ngUpload', [
   '$mdDialog',

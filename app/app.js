@@ -1,4 +1,4 @@
-angular.module('myApp', [
+angular.module('sasHotEditor', [
   'ngRoute',
   'ngMaterial',
   'picardy.fontawesome',
@@ -6,7 +6,7 @@ angular.module('myApp', [
   'h54sLoginModal',
   'h54sNavbar',
   'ngmTour',
-  'myApp.main',
+  'sasHotEditor.main',
 ])
 
 .config(['$routeProvider', function($routeProvider) {
