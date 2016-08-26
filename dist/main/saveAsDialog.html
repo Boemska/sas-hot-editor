@@ -1,0 +1,32 @@
+<md-dialog aria-label="Mango (Fruit)"  ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Save As</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="local.cancel()">
+          <fa name="times" size="large"></fa>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div layout="column" layout-margin>
+        <div flex></div>
+        <div flex></div>
+        <md-input-container flex>
+          <label>New Table Name</label>
+          <input ng-model="local.table" ng-keyup="$event.keyCode == 13 && local.save()" required>
+        </md-input-container>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="local.cancel()">
+        Cancel
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="local.save()" style="margin-right:20px;">
+        OK
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
