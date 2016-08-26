@@ -1,0 +1,25 @@
+<md-dialog id="login-modal" class="modal fade" ng-controller="LoginModalCtrl" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h4 class="modal-title">Log in</h4>
+    </div>
+  </md-toolbar>
+  <md-content>
+    <form id="login-form" role="form">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Username</label>
+        <input ng-model="user" ng-keypress="handleKeypress($event)">
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Password</label>
+        <input type="password" ng-model="pass" ng-keypress="handleKeypress($event)">
+        <div class="help-block with-errors"></div>
+      </md-input-container>
+    </form>
+    <div ng-class="{error: error}" id="login-msg">{{msg || '&nbsp;'}}</div>
+
+    <div layout="row" layout-align="center" layout-wrap>
+      <md-button ng-click="handleLogin()" class="md-raised md-primary" ng-disabled="loading">Submit</md-button>
+    </div>
+  </md-content>
+</md-dialog><!-- /.modal -->

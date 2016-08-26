@@ -1,0 +1,8 @@
+/app/ export-ignore
+/.bowerrc export-ignore
+/.gitignore export-ignore
+/bower.json export-ignore
+/gulpfile.js export-ignore
+/package.json export-ignore
+/README.md export-ignore
+/.gitattributes export-ignore
