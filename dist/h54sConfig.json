@@ -1,4 +1,5 @@
 {
+  "hostUrl": "http://n2.boemskats.com:7980/",
   "metadataRoot": "/Apps/tableEditor/",
   "debug": false
 }
