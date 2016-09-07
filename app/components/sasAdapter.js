@@ -64,7 +64,12 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
                 content: 'Error loading <b>' + sasProgram + '</b>'
               });
             }
-            deferred.reject(err);
+
+            deferred.reject(
+              err.type === 'programNotFound' && 'You have not been granted permission to perform this action, or the STP is missing.' ||
+              err.message ||
+              'Unknown error occurred. Please check your internet connection and try again.'
+            );
           } else {
             if(toast) {
               toast.className = 'success';
