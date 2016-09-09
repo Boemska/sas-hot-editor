@@ -2,24 +2,26 @@
 
 ## What is this?
 
-A HTML5 Web Application for the [SAS® Intelligence Platorm™](http://www.sas.com/en_us/software/sas9.html) that lets SAS users easily create, edit and upload SAS datasets using a familiar spreadsheet-like interface with decent front-end validation:
+A HTML5 Web Application for the [SAS® Intelligence Platorm™](http://www.sas.com/en_us/software/sas9.html) that lets SAS users easily edit, create and upload SAS datasets using a familiar spreadsheet-like interface with built in front-end validation:
 <p align="center">
 <img src="https://cloud.githubusercontent.com/assets/11962123/18225537/3b5b9844-71ec-11e6-8c4c-d66c786b47a2.gif" width="656" height="636">
 </p>
 
 ## Who is it for?
 
-Anyone wishing to let members of their organisation view or edit datasets on the server in a controlled and secure manner, without needing to install anything to their local machine. Whether you want to let them browse a library, update a control table, submit manual adjustments by pasting data in from excel, even submit timesheets... you get the idea. If you've ever had a colleague look off into middle distance and perform an impromptu soliloquy on _the good old days of PROC FSEDIT_, feel free to show them this app.
+SASHOT is designed to be an universal, customisable app, and will be useful to anyone needing to enable members of their organisation to easily view or edit remote data in a controlled and secure manner (without the need to install any clients to their local machine). 
+
+Whether it's to quickly browse a library, update a control table, submit manual adjustments (by pasting data in from their excel workbook?)... you get the idea. If you've ever had a colleague look off into middle distance and perform an impromptu soliloquy on _the good old days of PROC FSEDIT_, feel free to show them this app.
 
 ## How does it work?
 
-It uses the (excellent) [Handsontable JavaScript library](http://www.sas.com/en_us/software/sas9.html) to provide spreadsheet-like editor functionality, and the (excellent) [SAS Stored Process Web Application](http://support.sas.com/rnd/itech/doc9/dev_guide/stprocess/stpwebapp.html) to interact with the SAS Platform back-end. The interaction between the two is managed by the [Boemska HTML5 Data Adapter for SAS](github.com/Boemska/h54s).
+It uses the (excellent) [Handsontable JavaScript library](http://www.sas.com/en_us/software/sas9.html) to provide spreadsheet-like editor functionality, and the (excellent) [SAS Stored Process Web Application](http://support.sas.com/rnd/itech/doc9/dev_guide/stprocess/stpwebapp.html) to interact with the SAS Platform at the back end. The interaction between the two is managed by the [Boemska HTML5 Data Adapter for SAS](github.com/Boemska/h54s).
 
-To understand the mechanics of the app, start with the SAS programs in the `sas/` directory. 
+If you're a SAS programmer wanting to understand how the app works, start with the SAS programs in the `sas/` directory. 
 
 ## How do I get it?
 
-As with the h54s Angular Seed App, you need to install [npm](https://www.npmjs.com/), and then [bower](https://bower.io/). After that it's easy:
+As with the h54s Angular Seed App, you need to have [npm](https://www.npmjs.com/), and [bower](https://bower.io/) installed. After that it's easy:
 
 ```bash
 # Clone this project
@@ -66,6 +68,10 @@ For more information on the configuration parameters that the adapter will accep
 
 The app should then be accessible via ` http(s)://yourSasServer/theDirectoryYouCopiedItToInHtdocs/`
 
-### Wow, this is awesome. Can you customise this for me? Can you build me an app?
+### Support
 
-Sure. For simple stuff, raise an issue on GitHub. For commercials and support, drop us a line on info@boemskats.com.
+Sure - for simple stuff or feature ideas, raise an issue on GitHub. 
+
+###### Wow, this is awesome. Can you customise this for me? Can you build me an app?
+
+For commercials and support, drop us a line on info@boemskats.com.
