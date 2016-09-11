@@ -15,7 +15,7 @@ Whether it's to quickly browse a library, update a control table, submit manual 
 
 ## How does it work?
 
-It uses the (excellent) [Handsontable JavaScript library](http://www.sas.com/en_us/software/sas9.html) to provide spreadsheet-like editor functionality, and the (excellent) [SAS Stored Process Web Application](http://support.sas.com/rnd/itech/doc9/dev_guide/stprocess/stpwebapp.html) to interact with the SAS Platform at the back end. The interaction between the two is managed by the [Boemska HTML5 Data Adapter for SAS](github.com/Boemska/h54s).
+It uses the (excellent) [Handsontable JavaScript library](https://github.com/handsontable/handsontable) to provide spreadsheet-like editor functionality, and the (excellent) [SAS Stored Process Web Application](http://support.sas.com/rnd/itech/doc9/dev_guide/stprocess/stpwebapp.html) to interact with the SAS Platform at the back end. The interaction between the two is managed by the [Boemska HTML5 Data Adapter for SAS](github.com/Boemska/h54s).
 
 If you're a SAS programmer wanting to understand how the app works, start with the SAS programs in the `sas/` directory. 
 
