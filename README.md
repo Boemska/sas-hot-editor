@@ -53,7 +53,7 @@ SAS 9.4 comes bundled with Pivotal Web Server (Apache 2.2.29). To deploy the sta
 
 ##### Configure the Metadata location of deployed STPs
 
-If, for example, you deployed the .spk so that youre STPs are located under /Shared Data/Apps/TableEditor, your app/h54config.json should look like this (note trailing slash):
+If, for example, you deployed the .spk so that your STPs are located under /Shared Data/Apps/TableEditor, your app/h54config.json should look like this (note trailing slash):
 
 ```json
 {                                                                                                                                                           
