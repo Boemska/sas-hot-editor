@@ -45,12 +45,12 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
 
       sasAdapter.call('getMemberDetails', table).then(function(res) {
         $scope.tableInfo = res.memInfo[0];
-      }, function(err) {
+      }, function(msg) {
         $mdDialog.show(
           $mdDialog.alert()
             .clickOutsideToClose(true)
             .title('Error')
-            .textContent(err.message || 'Unknown error occurred. Please check your internet connection and try again.')
+            .textContent(msg)
             .ariaLabel('Unknown error')
             .ok('OK')
         );
@@ -76,12 +76,12 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
           tablesMap[lib.LIBNAME].push(lib.MEMNAME);
         }
       });
-    }, function(err) {
+    }, function(msg) {
       $mdDialog.show(
         $mdDialog.alert()
           .clickOutsideToClose(true)
           .title('Error')
-          .textContent(err.message || 'Unknown error occurred. Please check your internet connection and try again.')
+          .textContent(msg)
           .ariaLabel('Unknown error')
           .ok('OK')
       );
@@ -134,12 +134,12 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
         $scope.htData = res.tabledata;
 
         $scope.tableDataChanged = false;
-      }, function(err) {
+      }, function(msg) {
         $mdDialog.show(
           $mdDialog.alert()
             .clickOutsideToClose(true)
             .title('Error')
-            .textContent(err.message || 'Unknown error occurred. Please check your internet connection and try again.')
+            .textContent(msg)
             .ariaLabel('Unknown error')
             .ok('OK')
         );
@@ -167,12 +167,12 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
           $scope.htData = res.tabledata;
 
           $scope.tableDataChanged = false;
-        }, function(err) {
+        }, function(msg) {
           $mdDialog.show(
             $mdDialog.alert()
               .clickOutsideToClose(true)
               .title('Error')
-              .textContent(err.message || 'Unknown error occurred. Please check your internet connection and try again.')
+              .textContent(msg)
               .ariaLabel('Unknown error')
               .ok('OK')
           );
@@ -229,13 +229,13 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
                   $scope.tableDataChanged = false;
 
                   delete $scope.local;
-                }, function(err) {
+                }, function(msg) {
                   delete $scope.local;
                   $mdDialog.show(
                     $mdDialog.alert()
                     .clickOutsideToClose(true)
                     .title('Error')
-                    .textContent(err.message || 'Unknown error occurred. Please check your internet connection and try again.')
+                    .textContent(msg)
                     .ariaLabel('Unknown error')
                     .ok('OK')
                   );
