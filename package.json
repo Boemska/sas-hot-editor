@@ -1,7 +1,7 @@
 {
-  "name": "h54s_angular_seed",
+  "name": "sas-hot-editor",
   "version": "0.1.1",
-  "description": "A starter project for AngularJS using h54s SAS adapter",
+  "description": "Table editor for SAS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

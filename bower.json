@@ -1,10 +1,10 @@
 {
-  "name": "h54s_angular_seed",
+  "name": "sas-hot-editor",
   "version": "0.1.0",
   "authors": [
     "Boemskats"
   ],
-  "description": "A starter project for AngularJS using h54s SAS adapter",
+  "description": "Table editor for SAS",
   "license": "MIT",
   "ignore": [
     "**/.*",
