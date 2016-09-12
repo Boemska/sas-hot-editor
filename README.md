@@ -28,10 +28,16 @@ If you're a SAS programmer wanting to understand how the app works, start by loo
 - A modern browser. Chrome or Firefox recommended. IE11 works ok. 
 
 ##### Developer
-- Standard dev tools such as [git](https://git-scm.com/), [npm](https://www.npmjs.com/) and [bower](https://bower.io/). See below.
+- Standard dev tools such as [git](https://git-scm.com/), [npm](https://www.npmjs.com/) and [bower](https://bower.io/). Not needed if you just want to deploy/run the app. See below.
 
 
 ## How do I get it?
+
+##### To run the App as-is
+
+If you don't need to modify the app or you can't install git/npm/bower easily, you can simply download the repository as a .zip file by clicking the *Clone or download* button above -> *Download Zip*.
+
+##### For Development / Customisation
 
 As with the h54s Angular Seed App, you need to have [git](https://git-scm.com/), [npm](https://www.npmjs.com/) and [bower](https://bower.io/) installed. After that it's easy:
 
@@ -45,8 +51,6 @@ cd sas-hot-editor
 # Install the dependencies and build app and dist
 npm install
 ```
-
-If you really, really can't install the above tools or don't want to build the app yourself, you can just download `dist-prebuilt.zip` and `sas/spks/sashoteditor.spk` instead. This will let you easily deploy and run the app, but will make it more difficult to change and keep up-to-date. The former way really is better. 
 
 ## How do I deploy it?
 
@@ -90,7 +94,7 @@ The code is set up in this way for ease of deployment. If you're pushing this ou
 
 ##### Configure the Metadata location of deployed STPs
 
-The H54S Adapter needs to know the Metadata location of the registered Stored Processes. This is configured by editing `dist/h54sconfig.json`, where `dist` resides in the root directory of your git repository (or where you unzipped the app). If you imported the .spk so that your STPs are located under `/Shared Data/Apps/tableEditor`, your `dist/h54config.json` file should look like this (note trailing slash):
+The H54S Adapter needs to know the Metadata location of the registered Stored Processes. This is configured by editing `dist/h54sconfig.json`. If you imported the .spk so that your STPs are located under `/Shared Data/Apps/tableEditor`, your `dist/h54config.json` file should look like this (note trailing slash):
 
 ```json
 {
