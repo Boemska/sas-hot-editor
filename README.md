@@ -35,7 +35,7 @@ If you're a SAS programmer wanting to understand how the app works, start by loo
 
 ##### To run the App as-is
 
-If you don't need to modify the app much or can't install git/npm/bower easily, simply download the ![latest Release archive](https://github.com/Boemska/sas-hot-editor/archive/v0.2.0-beta.zip) from the [releases page](https://github.com/Boemska/sas-hot-editor/releases). 
+If you don't need to modify the app much or can't install git/npm/bower easily, simply download the [latest Release archive](https://github.com/Boemska/sas-hot-editor/archive/v0.2.0-beta.zip) from the [releases page](https://github.com/Boemska/sas-hot-editor/releases). 
 
 ##### For Development / Customisation
 
