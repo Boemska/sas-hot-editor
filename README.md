@@ -9,9 +9,9 @@ A [H54S](https://github.com/Boemska/h54s)-based HTML5 Web Application for the [S
 
 ## Who is it for?
 
-SASHOT is designed to be an universal, easily customised app. It will be useful to anyone wanting to enable members of their organisation to easily view or edit centrally stored data in a controlled and secure manner, without the need to install any clients to their local machine.
+SASHOT will be useful to anyone wanting to give members of their organisation the ability to view or edit centrally stored data in a controlled and secure manner, without the need for any extra traning or client-side deployment. It is designed to be a universal 'swiss-army knife' type app that can be easily customised by SAS programmers to provide locked down, user-dependent functionality. 
 
-Whether it's to quickly browse a library, update a control table, submit manual adjustments (by pasting data in from their excel workbook?)... you get the idea. If you've ever had a colleague look off into middle distance and perform an impromptu soliloquy on _the good old days of PROC FSEDIT_, feel free to show them this app.
+Whether it's to quickly browse a SAS library, update a control table, submit manual adjustments (by pasting data in from their excel workbook?)... you get the idea. If you've ever had a colleague look off into middle distance and perform an impromptu soliloquy on _the good old days of PROC FSEDIT_, feel free to show them this app.
 
 ## How does it work?
 
@@ -35,7 +35,7 @@ If you're a SAS programmer wanting to understand how the app works, start by loo
 
 ##### To run the App as-is
 
-If you don't need to modify the app or you can't install git/npm/bower easily, you can simply download the repository as a .zip file by clicking the *Clone or download* button above -> *Download Zip*.
+If you don't need to modify the app or can't install git/npm/bower easily, simply download the repository as a .zip file by clicking the *Clone or download* button above -> *Download Zip*.
 
 ##### For Development / Customisation
 
@@ -71,7 +71,7 @@ The SAS Metadata objects (5 Stored Processes and a Shared Prompt) are contained 
 
 Alternatively if you prefer to register the Stored Processes yourself, the SAS code for each can be found under `sas/stps`. The registered objects should all reside in one Metadata directory, and their names should mirror the names of the files, without the .sas extension.
 
-With either method you should end up with a Metadata directory resembling something like this:
+With either method you should end up with a Metadata directory, the contents of which resemble something like this:
 
 ![metadata](https://cloud.githubusercontent.com/assets/11962123/18432284/0da0dec0-78d9-11e6-884a-16d07ea2730f.png)
 
@@ -111,9 +111,15 @@ SAS 9.4 comes with Pivotal Web Server (Apache 2.2.29) included. To deploy this W
 
 #### Test the app
 
-As above, the app should now be accessible via `http(s)://yourSasServer:7980/theDirectoryYouCopiedItToInHtdocs/`, where yourSasServer and 7980 are the server and port number of your SAS Web Server. If you aren't already logged in to the SAS web apps, the app should ask you for your SAS username and password. This is a good sign. 
+As above, the app should now be accessible via `http(s)://yourSasServer:7980/theDirectoryYouCopiedItToInHtdocs/`, where yourSasServer and 7980 are the server and port number of your SAS Web Server. If you aren't already logged in to the SAS web apps, the app should ask you for your SAS username and password. This means the app was redirected to SASLogon correctly and is a good sign. 
 
-### Support
+## How do I customise it?
+
+Deploy it to your Development environment. Look at how the dropdowns are passed to the client in `startupService.sas` and have a think about Metadata-bound libraries. Feel free to change some of the HTML. Have a play.
+
+We're in the process of putting together a detailed Wiki. Watch this space.
+
+## Support
 
 For simple stuff or feature ideas, raise an issue on GitHub and let's make it happen. For commercial support or custom development, drop us a line on info@boemskats.com.
 
