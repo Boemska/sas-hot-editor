@@ -3,7 +3,8 @@ angular.module('sasHotEditor.main')
 .directive('ngUpload', [
   '$mdDialog',
   '$compile',
-  function($mdDialog, $compile) {
+  '$mdToast',
+  function($mdDialog, $compile, $mdToast) {
     return {
       restrict: 'A',
       templateUrl: 'main/dropFile.html',
@@ -65,7 +66,16 @@ angular.module('sasHotEditor.main')
           xhr.onload = function(e) {
             scope.uploadProgress = 100;
             clean();
-            scope.callback(JSON.parse(this.responseText.replace(/(\r\n|\r|\n)/g, '')));
+            try {
+              scope.callback(JSON.parse(this.responseText.replace(/(\r\n|\r|\n)/g, '')));
+            } catch(err) {
+              var toast = $mdToast.show({
+                template: '<md-toast class="error"><div>There was an error. Please check the file you are uploading and try again.</div></md-toast>',
+                hideDelay: 1800,
+                position: 'bottom right'
+              });
+              console.log(this.responseText);
+            }
             scope.uploading = false;
             scope.fileOver = false;
             scope.$parent.$apply();
