@@ -219,6 +219,7 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
                 sasAdapter.call('writeTable', table).then(function(res) {
                   if($scope.tables.indexOf($scope.local.table.toUpperCase()) === -1) {
                     $scope.tables.push($scope.local.table.toUpperCase());
+                    $scope.tables.sort();
                   }
                   $scope.sideData.table = $scope.local.table.toUpperCase();
                   delete $scope.local.table;
