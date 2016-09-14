@@ -163,7 +163,6 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
         table.add($scope.htData, 'tabledata');
         sasAdapter.call('writeTable', table).then(function(res) {
           $scope.loading = false;
-          $scope.htDynamicSpec = res.columnspec;
           $scope.htData = res.tabledata;
 
           $scope.tableDataChanged = false;
@@ -223,12 +222,12 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
                   delete $scope.local.table;
 
                   $scope.loading = false;
-                  $scope.htDynamicSpec = res.columnspec;
                   $scope.htData = res.tabledata;
 
                   $scope.tableDataChanged = false;
 
                   delete $scope.local;
+                  $scope.loading = false;
                 }, function(msg) {
                   delete $scope.local;
                   $mdDialog.show(
