@@ -45,3 +45,12 @@
   color: #fff;
   border: 2px solid #fff;
 }
+
+#tour .close {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  visibility: visible;
+  color: #fff;
+  cursor: pointer;
+}

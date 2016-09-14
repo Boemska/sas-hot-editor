@@ -4,7 +4,7 @@ angular.module('ngmTour', [])
   '$mdMedia',
   '$document',
   function($mdMedia, $document) {
-    var items, itemInd, currentItem, tourEl, overlayEl, messageEl, nextButtonEl, wrapperEl;
+    var items, itemInd, currentItem, tourEl, overlayEl, messageEl, nextButtonEl, wrapperEl, closeEl;
 
     function clean() {
       overlayEl.remove();
@@ -121,17 +121,23 @@ angular.module('ngmTour', [])
 
         angular.element(document.body).append('<div id="tour"></div>');
         tourEl = angular.element(document.querySelector('#tour'));
+        tourEl.append('<span class="close"><i class="fa fa-times fa-2x" aria-hidden="true"></i></span>');
+        closeEl = angular.element(document.querySelector('#tour .close'));
         tourEl.append('<div class="wrapper"><div class="message"></div><md-button class="md-button button ">Next</md-button></div>');
 
         wrapperEl = angular.element(document.querySelector('#tour .wrapper'));
         messageEl = angular.element(document.querySelector('#tour .message'));
         nextButtonEl = angular.element(document.querySelector('#tour .button'));
 
+        function close() {
+          tourEl.remove();
+          tourEl = wrapperEl = messageEl = nextButtonEl = closeEl = null; //remove reference so the GC can collect it
+          window.localStorage.setItem('tourDone', true);
+        }
+
         nextButtonEl.on('click', function() {
           if(nextButtonEl[0].innerHTML === 'Close') {
-            tourEl.remove();
-            tourEl = wrapperEl = messageEl = nextButtonEl = null; //remove reference so the GC can collect it
-            window.localStorage.setItem('tourDone', true);
+            close();
             return;
           }
 
@@ -143,6 +149,10 @@ angular.module('ngmTour', [])
 
           currentItem = items[itemInd];
           display();
+        });
+
+        closeEl.on('click', function() {
+          close();
         });
 
         display();
