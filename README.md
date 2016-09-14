@@ -67,7 +67,7 @@ More detail on each step is provided below:
 
 ##### Deploy the Stored Processes
 
-The SAS Metadata objects (5 Stored Processes and a Shared Prompt) are contained within a standard sas .spk package, under `sas/spks/sashoteditor.spk`. Import this package into a Metadata location of your choice.
+The SAS Metadata objects (6 Stored Processes and a Shared Prompt) are contained within a standard sas .spk package, under `sas/spks/sashoteditor.spk`. Import this package into a Metadata location of your choice.
 
 Alternatively if you prefer to register the Stored Processes yourself, the SAS code for each can be found under `sas/stps`. The registered objects should all reside in one Metadata directory, and their names should mirror the names of the files, without the .sas extension.
 
@@ -86,7 +86,7 @@ The Stored Processes need to source the macros defined in `h54s.sas` to function
  
 This will enable the H54S macros are be sourced via the `%include "&h54slocation.";` statement present in each of the SAS programs. 
 
-_Note: If you deployed your Stored Processes manually, you will need to pass the `&h54slocation.` var to your programs another way - ie. by setting the value in your STP Server autoexec, creating a **h54slocation** prompt for each of the Stored Processes, or creating it as a single Shared Prompt and attaching it to each of the 5 STPs._
+_Note: If you deployed your Stored Processes manually, you will need to pass the `&h54slocation.` var to your programs another way - ie. by setting the value in your STP Server autoexec, creating a **h54slocation** prompt for each of the Stored Processes, or creating it as a single Shared Prompt and attaching it to each of the 6 STPs._
 
 The code is set up in this way for ease of deployment. If you're pushing this out to a couple of thousand users, consider storing / compiling / autocalling `h54s.sas` rather than having the code %included each time.
 
