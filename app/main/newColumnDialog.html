@@ -1,0 +1,47 @@
+<md-dialog aria-label="New Column"  ng-cloak>
+  <form name="newColumnForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>New Column</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="local.cancel()">
+          <fa name="times" size="large"></fa>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div layout="column" layout-margin>
+        <div flex></div>
+        <div flex></div>
+        <md-input-container flex>
+          <label>Name</label>
+          <input ng-model="colName" ng-keyup="$event.keyCode == 13 && ok()" md-autofocus required>
+        </md-input-container>
+        <md-input-container flex>
+          <label>Type</label>
+          <md-select ng-model="colType" required>
+            <md-option ng-value="2">
+              String
+            </md-option>
+            <md-option ng-value="1">
+              Number
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container flex ng-if="colType !== 1">
+          <label>Length</label>
+          <input type="number" ng-model="colLength" ng-keyup="$event.keyCode == 13 && ok()" value="8" required>
+        </md-input-container>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="cancel()">
+        Cancel
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="ok()" style="margin-right:20px;">
+        OK
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

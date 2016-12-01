@@ -312,5 +312,56 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
       $scope.loading = false;
       $scope.$apply();
     };
+
+    $rootScope.$on('newColumn', function(evt, colName, colType, colLength) {
+      if($scope.htData[0][colName.toUpperCase()] !== undefined) {
+        $mdDialog.show(
+          $mdDialog.alert()
+          .clickOutsideToClose(true)
+          .title('Error adding new column')
+          .textContent('Column with key "' + colName + '" already exists')
+          .ok('OK')
+        );
+      }
+      var newSpec = $scope.htDynamicSpec.slice();
+      newSpec.push({
+        LABEL: ' ',
+        LENGTH: colLength,
+        NAME: colName.toUpperCase(),
+        TYPE: colType
+      });
+      $scope.htDynamicSpec = newSpec;
+    });
+
+    $scope.openColumnDialog = function() {
+      $mdDialog.show({
+        controller: [
+          '$scope',
+          function($scope) {
+            $scope.cancel = function() {
+              $mdDialog.hide();
+            };
+            $scope.ok = function() {
+              if($scope.newColumnForm.$invalid) {
+                alert('Please fix input errors');
+              } else {
+                $scope.$emit('newColumn', $scope.colName, $scope.colType, $scope.colType === 2 ? $scope.colLength : 8);
+                $mdDialog.hide();
+              }
+            };
+          }
+        ],
+        templateUrl: 'main/newColumnDialog.html'
+      });
+    };
+
+    $scope.deleteColumn = function(ind) {
+      var col = $scope.htDynamicSpec[ind];
+      $scope.htData.forEach(function(row) {
+        delete row[col.NAME];
+      });
+      $scope.htDynamicSpec.splice(ind, 1);
+      $scope.tableDataChanged = true;
+    };
   }
 ]);

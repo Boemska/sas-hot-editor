@@ -52,7 +52,7 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
             }, 500);
           });
 
-          $scope.$watch('spec', function() {
+          $scope.$watchCollection('spec', function() {
             if($scope.spec && $scope.data) {
               var tableWidth = 0;
 

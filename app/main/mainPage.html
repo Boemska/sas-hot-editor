@@ -38,6 +38,31 @@
             </md-input-container>
           </div>
         </div>
+        <div layout="column" layout-align="center center" ng-show="htData">
+          <div flex>
+            <md-button class="md-fab md-hue-2" aria-label="Add Column" ng-click="openColumnDialog()">
+              <fa name="plus" size="large"></fa>
+              <md-tooltip md-direction="top">
+                Add Column
+              </md-tooltip>
+            </md-button>
+            <md-menu>
+              <md-button class="md-fab md-hue-2" aria-label="Remove Column" ng-click="$mdOpenMenu($event)">
+                <fa name="minus" size="large"></fa>
+                <md-tooltip md-direction="top">
+                  Remove Column
+                </md-tooltip>
+              </md-button>
+              <md-menu-content width="4">
+                <md-menu-item ng-repeat="col in htDynamicSpec">
+                  <md-button ng-click="deleteColumn($index)">
+                    {{col.NAME}}
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+          </div>
+        </div>
         <div ngm-tour-step="4" ngm-tour-msg="Otherwise, you can <b>open</b> the selected dataset. When you're done editing click <b>save</b>." ngm-tour-color='#666666'>
           <div flex layout="row">
             <md-button flex="50" ng-disabled="!sideData.library || !sideData.table || loading" class="md-raised md-primary" ng-click="open()">Open</md-button>
