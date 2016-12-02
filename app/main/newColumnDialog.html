@@ -28,9 +28,9 @@
             </md-option>
           </md-select>
         </md-input-container>
-        <md-input-container flex ng-if="colType !== 1">
+        <md-input-container flex ng-show="colType !== 1">
           <label>Length</label>
-          <input type="number" ng-model="colLength" ng-keyup="$event.keyCode == 13 && ok()" value="8" required>
+          <input type="number" ng-model="colLength" ng-keyup="$event.keyCode == 13 && ok()" value="8" ng-required="colType !== 1">
         </md-input-container>
       </div>
     </md-dialog-content>
