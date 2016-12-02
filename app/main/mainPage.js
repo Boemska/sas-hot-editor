@@ -131,6 +131,12 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
       sasAdapter.call('getTable', table).then(function(res) {
         $scope.loading = false;
         $scope.htDynamicSpec = res.columnspec;
+        //remove " " from last row
+        for(var key in res.tabledata[res.tabledata.length - 1]) {
+          if(res.tabledata[res.tabledata.length - 1][key] === ' ') {
+            res.tabledata[res.tabledata.length - 1][key] = '';
+          }
+        }
         $scope.htData = res.tabledata;
 
         $scope.tableDataChanged = false;

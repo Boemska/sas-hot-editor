@@ -119,14 +119,16 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
                   }
                 },
                 afterChange: function(changes, source) {
+                  var instance = hotRegisterer.getInstance($scope.hotId);
+
                   if(source === 'loadData') {
-                    $timeout(function() {
-                      insertEmptyRow();
-                    }, 0);
+                    if(instance && !instance.isEmptyRow(instance.countRows() - 1)) {
+                      $timeout(function() {
+                        insertEmptyRow();
+                      }, 0);
+                    }
                     return;
                   }
-
-                  var instance = hotRegisterer.getInstance($scope.hotId);
 
                   var rowInd;
                   for(var i = changes.length - 1; i >= 0; i--) {
@@ -161,7 +163,6 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
           function updateTableSettings(settings) {
             var instance = hotRegisterer.getInstance($scope.hotId);
             if(instance) {
-              //the is already present, but width needs to be updated
               setTimeout(function() {
                 instance.updateSettings(settings);
               }, 0);
