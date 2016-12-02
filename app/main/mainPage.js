@@ -322,6 +322,7 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
           .textContent('Column with key "' + colName + '" already exists')
           .ok('OK')
         );
+        return;
       }
       var newSpec = $scope.htDynamicSpec.slice();
       newSpec.push({
