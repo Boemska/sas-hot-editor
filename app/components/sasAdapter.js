@@ -29,7 +29,8 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
         var deferred = $q.defer();
         var loadingToastId = ngToast.create({
           className: 'info',
-          content: 'Loading: <b>' + sasProgram + '</b>'
+          content: 'Loading: <b>' + sasProgram + '</b>',
+          timeout: 1e6 //around 16 minutes
         });
 
         _adapter.call(sasProgram, table, function(err, res) {
