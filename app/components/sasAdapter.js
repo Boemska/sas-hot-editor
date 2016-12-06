@@ -151,4 +151,5 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
         _adapter.onRemoteConfigUpdate(callback);
       }
     };
-}]);
+  }
+]);
