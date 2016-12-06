@@ -7,12 +7,14 @@ angular.module('myApp.view2', ['ngRoute'])
   });
 }])
 
-.controller('View2Ctrl', [function () {
+.controller('View2Ctrl', [
+  function () {
 /*
-  sasAdapter.call('programPath').then(function(res) {
-    //success
-  }, function(err) {
-    //error
-  });
+    sasAdapter.call('programPath').then(function(res) {
+      //success
+    }, function(err) {
+      //error
+    });
 */
-}]);
+  }
+]);
