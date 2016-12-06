@@ -7,12 +7,17 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', ['$scope', 'sasAdapter', '$rootScope', function ($scope, sasAdapter, $rootScope) {
+.controller('View1Ctrl', [
+  '$scope',
+  'sasAdapter',
+  '$rootScope',
+  function ($scope, sasAdapter, $rootScope) {
 /*
-  sasAdapter.call('programPath').then(function(res) {
-    //success
-  }, function(err) {
-    //error
-  });
+    sasAdapter.call('programPath').then(function(res) {
+      //success
+    }, function(err) {
+      //error
+    });
 */
-}]);
+  }
+]);
