@@ -2,10 +2,9 @@ angular.module('h54sLoginModal', ['sasAdapter', 'ngMaterial'])
 
 .controller('LoginModalCtrl', [
   '$scope',
-  '$interval',
   'sasAdapter',
   '$mdDialog',
-  function($scope, $interval, sasAdapter, $mdDialog) {
+  function($scope, sasAdapter, $mdDialog) {
     $scope.handleLogin = function() {
       //disable submit button based on loading property
       $scope.loading = true;
@@ -13,12 +12,7 @@ angular.module('h54sLoginModal', ['sasAdapter', 'ngMaterial'])
       var user = $scope.user;
       var pass = $scope.pass;
 
-      $scope.msg = 'Please wait.';
       $scope.error = false;
-
-      var handler = $interval(function() {
-        $scope.msg += '.';
-      }, 300);
 
       sasAdapter.login(user, pass).then(function(status) {
         if(status === -1) {
@@ -33,12 +27,10 @@ angular.module('h54sLoginModal', ['sasAdapter', 'ngMaterial'])
         }
 
         $scope.loading = false;
-        $interval.cancel(handler);
       }, function(e) {
         $scope.msg = e.message;
         $scope.error = true;
         $scope.loading = false;
-        $interval.cancel(handler);
       });
     };
 

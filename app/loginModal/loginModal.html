@@ -17,6 +17,8 @@
       </md-input-container>
     </form>
     <div ng-class="{error: error}" id="login-msg">{{msg || '&nbsp;'}}</div>
+    <md-progress-linear ng-show="loading" md-mode="indeterminate"></md-progress-linear>
+    <div>&nbsp;</div>
 
     <div layout="row" layout-align="center" layout-wrap>
       <md-button ng-click="handleLogin()" class="md-raised md-primary" ng-disabled="loading">Submit</md-button>
