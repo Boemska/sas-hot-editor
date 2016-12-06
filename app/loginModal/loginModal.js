@@ -4,7 +4,8 @@ angular.module('h54sLoginModal', ['sasAdapter', 'ngMaterial'])
   '$scope',
   '$interval',
   'sasAdapter',
-  function($scope, $interval, sasAdapter) {
+  '$mdDialog',
+  function($scope, $interval, sasAdapter, $mdDialog) {
     $scope.handleLogin = function() {
       //disable submit button based on loading property
       $scope.loading = true;

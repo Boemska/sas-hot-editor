@@ -5,7 +5,9 @@ angular.module('sasAdapter', ['ngToast', 'ngAnimate', 'ngSanitize'])
   '$rootScope',
   'ngToast',
   '$timeout',
-  function($q, $rootScope, ngToast, $timeout) {
+  '$mdDialog',
+  '$mdMedia',
+  function($q, $rootScope, ngToast, $timeout, $mdDialog, $mdMedia) {
     var _adapter = new h54s({
       isRemoteConfig: true
     });
