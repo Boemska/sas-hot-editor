@@ -118,18 +118,44 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
                     }
                   }
                 },
-                afterChange: function(changes, source) {
+                beforeRender: function(isForced) {
+                  if(!isForced) return;
                   var instance = hotRegisterer.getInstance($scope.hotId);
-
-                  if(source === 'loadData') {
-                    if(instance && !instance.isEmptyRow(instance.countRows() - 1)) {
-                      $timeout(function() {
-                        insertEmptyRow();
-                      }, 0);
+                  if(instance) {
+                    for(var i = 0; i < $scope.spec.length; i++) {
+                      var specKey = $scope.spec[i].NAME.toUpperCase();
+                      for(var j = 0; j < $scope.data.length; j++) {
+                        if(getType($scope.spec[i].TYPE) !== 'numeric') {
+                          if($scope.data[j][specKey] && $scope.spec[i].LENGTH < $scope.data[j][specKey].length) {
+                            isInvalid = true;
+                            instance.setCellMeta(j, i, 'valid', false);
+                          } else {
+                            instance.setCellMeta(j, i, 'valid', true);
+                          }
+                        } else {
+                          if($scope.data[j][specKey] && isNaN($scope.data[j][specKey])) {
+                            isInvalid = true;
+                            instance.setCellMeta(j, i, 'valid', false);
+                          } else {
+                            instance.setCellMeta(j, i, 'valid', true);
+                          }
+                        }
+                      }
                     }
-                    return;
                   }
+                },
+                afterLoadData: function() {
+                  $timeout(function() {
+                    var instance = hotRegisterer.getInstance($scope.hotId);
+                    if(instance && !instance.isEmptyRow(instance.countRows() - 1)) {
+                      insertEmptyRow();
+                    }
+                  }, 100);
+                },
+                afterChange: function(changes, source) {
+                  if(!changes) return;
 
+                  var instance = hotRegisterer.getInstance($scope.hotId);
                   var rowInd;
                   for(var i = changes.length - 1; i >= 0; i--) {
                     //skip this change if we had another from the same row
