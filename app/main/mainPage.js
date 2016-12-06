@@ -320,7 +320,7 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
     };
 
     $rootScope.$on('newColumn', function(evt, colName, colType, colLength) {
-      if($scope.htData[0][colName.toUpperCase()] !== undefined) {
+      if($scope.htData[0][colName.toUpperCase()] !== undefined || $scope.htData[0][colName] !== undefined) {
         $mdDialog.show(
           $mdDialog.alert()
           .clickOutsideToClose(true)
