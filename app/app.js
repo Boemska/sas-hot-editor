@@ -9,6 +9,14 @@ angular.module('sasHotEditor', [
   'sasHotEditor.main',
 ])
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/'});
-}]);
+.config([
+  '$routeProvider',
+  '$mdThemingProvider',
+  function($routeProvider, $mdThemingProvider) {
+    $routeProvider.otherwise({redirectTo: '/'});
+
+    $mdThemingProvider.theme('green')
+      .primaryPalette('green')
+      .accentPalette('light-green');
+  }
+]);
