@@ -101,6 +101,13 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
     $scope.sideData = {}; //used in child scope of SideCtrl
     var table;
 
+    function sanitizeLastRow(data) {
+      var lastRowInd = data.length - 1;
+      for(var key in data[lastRowInd]) {
+        data[lastRowInd][key] = data[lastRowInd][key] === '' ? null : data[lastRowInd][key];
+      }
+    }
+
     var toast = $mdToast.build({
       hideDelay: 1800,
       position: 'bottom right'
@@ -166,6 +173,7 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
         );
       } else {
         $scope.loading = true;
+        sanitizeLastRow($scope.htData);
         table.add($scope.htData, 'tabledata');
         sasAdapter.call('writeTable', table).then(function(res) {
           $scope.loading = false;
@@ -220,6 +228,7 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
                 table = sasAdapter.createTable([
                   {libname: $scope.sideData.library, memname: $scope.local.table}
                 ], 'data', 10 * 1000);
+                sanitizeLastRow($scope.htData);
                 table.add($scope.htData, 'tabledata');
 
                 sasAdapter.call('writeTable', table).then(function(res) {
