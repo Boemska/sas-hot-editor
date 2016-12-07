@@ -340,7 +340,23 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
       $scope.htDynamicSpec = newSpec;
     });
 
-    $scope.openColumnDialog = function() {
+    $rootScope.$on('editColumn', function(evt, ind, colName, colType, colLength) {
+      var oldName = $scope.htDynamicSpec[ind].NAME;
+      if(oldName !== colName) {
+        for(var i = 0; i < $scope.htData.length; i++) {
+          $scope.htData[i][colName.toUpperCase()] = $scope.htData[i][oldName];
+          delete $scope.htData[i][oldName];
+        }
+      }
+      var col = $scope.htDynamicSpec[ind] = {
+        LABEL: ' ',
+        LENGTH: colLength,
+        NAME: colName.toUpperCase(),
+        TYPE: colType
+      };
+    });
+
+    $scope.openNewColumnDialog = function() {
       $mdDialog.show({
         controller: [
           '$scope',
@@ -358,7 +374,33 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
             };
           }
         ],
-        templateUrl: 'main/newColumnDialog.html'
+        templateUrl: 'main/columnDialog.html'
+      });
+    };
+
+    $scope.openEditColumnDialog = function(ind) {
+      var col = $scope.htDynamicSpec[ind];
+      $mdDialog.show({
+        controller: [
+          '$scope',
+          function($scope) {
+            $scope.colName = col.NAME;
+            $scope.colType = col.TYPE;
+            $scope.colLength = col.LENGTH;
+            $scope.cancel = function() {
+              $mdDialog.hide();
+            };
+            $scope.ok = function() {
+              if($scope.newColumnForm.$invalid) {
+                alert('Please fix input errors');
+              } else {
+                $scope.$emit('editColumn', ind, $scope.colName, $scope.colType, $scope.colType === 2 ? $scope.colLength : 8);
+                $mdDialog.hide();
+              }
+            };
+          }
+        ],
+        templateUrl: 'main/columnDialog.html'
       });
     };
 

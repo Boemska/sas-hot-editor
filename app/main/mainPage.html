@@ -40,12 +40,27 @@
         </div>
         <div layout="column" layout-align="center center" ng-show="htData">
           <div flex>
-            <md-button class="md-fab md-hue-2" aria-label="Add Column" ng-click="openColumnDialog()">
+            <md-button class="md-fab md-hue-2" aria-label="Add Column" ng-click="openNewColumnDialog()">
               <fa name="plus" size="large"></fa>
               <md-tooltip md-direction="top">
                 Add Column
               </md-tooltip>
             </md-button>
+            <md-menu>
+              <md-button class="md-fab md-hue-2" aria-label="Remove Column" ng-click="$mdOpenMenu($event)">
+                <fa name="pencil" size="large"></fa>
+                <md-tooltip md-direction="top">
+                  Edit Column
+                </md-tooltip>
+              </md-button>
+              <md-menu-content width="4">
+                <md-menu-item ng-repeat="col in htDynamicSpec">
+                  <md-button ng-click="openEditColumnDialog($index)">
+                    {{col.NAME}}
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
             <md-menu>
               <md-button class="md-fab md-hue-2" aria-label="Remove Column" ng-click="$mdOpenMenu($event)">
                 <fa name="minus" size="large"></fa>
