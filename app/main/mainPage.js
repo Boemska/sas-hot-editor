@@ -205,6 +205,15 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
             .ariaLabel('Library not selected')
             .ok('OK')
         );
+      } else if($scope.tableIsValid === false) {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title('Save Error')
+            .textContent('Your data is invalid and cannot be saved. Please check the table for red cells.')
+            .ariaLabel('Save Error - invalid table data')
+            .ok('OK')
+        );
       } else {
         $mdDialog.show({
           scope: $scope,
