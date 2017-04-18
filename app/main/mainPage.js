@@ -118,8 +118,10 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
       $mdToast.show(toast);
     };
 
-    $scope.onHandsontableDataEdit = function(changes, instance) {
-      $scope.tableDataChanged = true;
+    var validateFn = function(changes, instance) {
+      if(changes) {
+        $scope.tableDataChanged = true;
+      }
 
       $scope.tableIsValid = true;
       instance.getCellsMeta().forEach(function(cell) {
@@ -128,6 +130,9 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
         }
       });
     };
+
+    $scope.onHandsontableDataEdit = validateFn;
+    $scope.onHandsontableSettingsChange = validateFn;
 
     $scope.open = function() {
       $scope.loading = true;
@@ -359,19 +364,36 @@ angular.module('sasHotEditor.main', ['ngRoute', 'dynamicHandsontable'])
     });
 
     $rootScope.$on('editColumn', function(evt, ind, colName, colType, colLength) {
+      var colNameUpper = colName.toUpperCase();
       var oldName = $scope.htDynamicSpec[ind].NAME;
       if(oldName !== colName) {
         for(var i = 0; i < $scope.htData.length; i++) {
-          $scope.htData[i][colName.toUpperCase()] = $scope.htData[i][oldName];
+          $scope.htData[i][colNameUpper] = $scope.htData[i][oldName];
           delete $scope.htData[i][oldName];
         }
       }
+      // convert values to string/number based on new column type
+      $scope.htData.forEach(function(row) {
+        // 1 = number, 2 = string
+        var val = row[colNameUpper];
+        if(colType === 1) {
+          if(val === ' ') {
+            val = null;
+          } else if(val && !isNaN(val)) {
+            val = Number(val);
+          }
+        } else if(colType === 2 && val) {
+          val = val.toString();
+        }
+        row[colNameUpper] = val;
+      });
       var col = $scope.htDynamicSpec[ind] = {
         LABEL: ' ',
         LENGTH: colLength,
-        NAME: colName.toUpperCase(),
+        NAME: colNameUpper,
         TYPE: colType
       };
+      $scope.tableDataChanged = true;
     });
 
     $scope.openNewColumnDialog = function() {

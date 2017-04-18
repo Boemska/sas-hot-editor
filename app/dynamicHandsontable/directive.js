@@ -12,6 +12,7 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
         data: '=',
         errorHandler: '=',
         onDataChange: '=',
+        onSettingsChange: '=',
         hotId: '@',
         width: '@',
         height: '@'
@@ -191,6 +192,7 @@ angular.module('dynamicHandsontable', ['ngHandsontable'])
             if(instance) {
               setTimeout(function() {
                 instance.updateSettings(settings);
+                $scope.onSettingsChange(null, instance);
               }, 0);
             }
           }
