@@ -23,6 +23,10 @@
     "angular-fontawesome": "^1.0.0",
     "ngHandsontable": "^0.10.0",
     "ngToast": "ngtoast#^2.0.0",
-    "h54s": "^0.11.0"
+    "h54s": "^0.11.0",
+    "angular-aria": "1.4"
+  },
+  "resolutions": {
+    "angular": "~1.4.1"
   }
 }
